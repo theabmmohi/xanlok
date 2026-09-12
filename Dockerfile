@@ -19,7 +19,7 @@ FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
     nginx supervisor bash gettext \
-    libpng-dev oniguruma-dev libxml2-dev libzip-dev sqlite \
+    libpng-dev oniguruma-dev libxml2-dev libzip-dev sqlite-dev \
     && docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd zip
 
 WORKDIR /var/www
