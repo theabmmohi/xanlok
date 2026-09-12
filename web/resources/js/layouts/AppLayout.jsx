@@ -1,13 +1,13 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent } from "@/components/ui/dropdown-menu"
+import { Sun, Moon, Monitor, Settings, LogOut, User, Lock } from "lucide-react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Sun, Moon, Monitor, Settings, LogOut } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
 import { usePage, router, Link } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import toast, { Toaster } from "@/lib/toaster"
 
 export default function AppLayout({ children }) {
-  const { props } = usePage()
+  const { component, props } = usePage()
   const [appearance, setAppearanceState] = useState("")
   const [sysDark, setSysDark] = useState(false)
   useEffect(() => {
@@ -32,22 +32,29 @@ export default function AppLayout({ children }) {
   }, [appearance])
   return <>
     <div className="h-svh w-svw flex flex-col">
-      <div className="flex items-center justify-between bg-secondary border-b border-border px-5 py-2">
-        <div>
+      <div className="flex items-center justify-between bg-secondary border-b border-border px-5 py-2 select-none">
+        <div onClick={() => router.get("/")}>
           <span className="font-mono text-lg font-medium text-secondary-foreground">{props.appname}</span>
         </div>
-        <div className="h-10">
+        {component.startsWith("Auth/") ? <div className="h-10"></div> : <div className="h-10">
           {props.auth.user?
             <DropdownMenu>
               <DropdownMenuTrigger nativeButton={false} render={
                 <Avatar size="lg" className="cursor-pointer">
-                  <AvatarImage src="https://github.com/theabmmohi.png" alt={props.auth.user?.name}/>
+                  <AvatarImage src={props.auth.user?.avatar} alt={props.auth.user?.name}/>
                   <AvatarFallback>{props.auth.user?.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase()}</AvatarFallback>
                 </Avatar>
               }/>
               <DropdownMenuContent className="min-w-50">
                 <DropdownMenuGroup>
-                  <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+                  <div className="p-1 select-none">
+                    <p className="text-sm font-medium truncate">{props.auth.user?.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">{props.auth.user?.email}</p>
+                  </div>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator/>
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="select-none">Appearance</DropdownMenuLabel>
                   <DropdownMenuRadioGroup value={appearance} onValueChange={setAppearance}>
                     <DropdownMenuRadioItem value="light">
                       <Sun/>Light
@@ -68,11 +75,11 @@ export default function AppLayout({ children }) {
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
-                        <DropdownMenuItem>
-                          
+                        <DropdownMenuItem render={<Link href="/settings/profile"/>}>
+                          <User/>Profile
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          
+                        <DropdownMenuItem render={<Link href="/settings/security"/>}>
+                          <Lock/>Security
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -87,7 +94,7 @@ export default function AppLayout({ children }) {
               <Button nativeButton={false} variant="ghost" render={<Link href="/login"/>}>Login</Button>
               <Button nativeButton={false} variant="outline" className="bg-transparent" render={<Link href="/register"/>}>Register</Button>
             </div>}
-        </div>
+        </div>}
       </div>
       <div className="flex-1 min-h-full w-full overflow-y-auto p-6">
         {children}

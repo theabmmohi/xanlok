@@ -10,7 +10,7 @@ createInertiaApp({
     if (title) return `${title} - ${base}`
     const [pathname] = page.url.split("?")
     const segs = pathname.split("/").filter(Boolean).map(seg => seg.charAt(0).toUpperCase() + seg.slice(1))
-    return segs.length ? `${segs.join(" | ")} - ${base}` : base
+    return segs.length ? `${segs.reverse().join(" | ")} - ${base}` : base
   },
   progress: {
     color: "#4B5563"
