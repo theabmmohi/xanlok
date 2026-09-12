@@ -60,8 +60,13 @@ export function RegisterForm({ className, ...props }) {
   const { data, setData, post, processing, errors, clearErrors } = useForm({ name: "", username: "", email: "", password: "", password_confirmation: "" })
   const change = (field, event) => {
     const value = event.target.value
-    if (field === "username") setUsername(value)
-    setData(field, field === "username" ? value.toLowerCase().replace(/[^a-z]/g, "") : value)
+    if (field === "username") {
+      const sanitized = value.toLowerCase().replace(/[^a-z]/g, "")
+      setUsername(sanitized)
+      setData(field, sanitized)
+    } else {
+      setData(field, value)
+    }
     clearErrors(field)
   }
   const submit = (event) => {
