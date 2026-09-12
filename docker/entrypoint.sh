@@ -22,6 +22,9 @@ php artisan key:generate --force --no-interaction || true
 mkdir -p database
 [ -f database/database.sqlite ] || touch database/database.sqlite
 
+# Migrate to database
+php artisan migrate --force
+
 # Cache config/routes/views now that .env is finally present
 php artisan config:cache
 php artisan route:cache
