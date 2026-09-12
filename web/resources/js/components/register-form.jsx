@@ -5,15 +5,63 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
+import { LoaderCircle, CircleCheck, Ban } from "lucide-react"
 import { useForm, Link } from "@inertiajs/react"
+import { useState, useEffect } from "react"
 import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
 export function RegisterForm({ className, ...props }) {
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ name: "", email: "", password: "", password_confirmation: "" })
+  const [username, setUsername] = useState("")
+  const [status, setStatus] = useState("idle") // "idle" | "loading" | "valid" | "invalid"
+  const [errorMessage, setErrorMessage] = useState("")
+  useEffect(() => {
+    if (!username) {
+      setStatus("idle")
+      setErrorMessage("")
+      return
+    }
+    const ragex = /^[a-z]{5,25}$/
+    if (!ragex.test(username)) {
+      setStatus("invalid")
+      if (username !== username.toLowerCase()) setErrorMessage("Username must contain lowercase letters only.")
+      else if (username.length < 5) setErrorMessage("Username must be at least 5 characters long.")
+      else if (username.length > 25) setErrorMessage("Username cannot exceed 25 characters.")
+      else setErrorMessage("Invalid username format.")
+      return
+    }
+    setStatus("loading")
+    const timer = setTimeout(async () => {
+      try {
+        const resp = await fetch("/check/username", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-XSRF-TOKEN": decodeURIComponent(document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1] ?? "")
+          },
+          body: JSON.stringify({ username })
+        })
+        const data = await resp.json()
+        if (data?.available) {
+          setStatus("valid")
+          setErrorMessage("")
+        } else {
+          setStatus("invalid")
+          setErrorMessage("Username is already taken.")
+        }
+      } catch (_) {
+          setStatus("invalid")
+          setErrorMessage("Could not check availability. Try again.")
+      }
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [username])
+  const { data, setData, post, processing, errors, clearErrors } = useForm({ name: "", username: "", email: "", password: "", password_confirmation: "" })
   const change = (field, event) => {
     const value = event.target.value
-    setData(field, value)
+    if (field === "username") setUsername(value)
+    setData(field, field === "username" ? value.toLowerCase().replace(/[^a-z]/g, "") : value)
     clearErrors(field)
   }
   const submit = (event) => {
@@ -34,6 +82,18 @@ export function RegisterForm({ className, ...props }) {
               <FieldLabel htmlFor="name">Full Name</FieldLabel>
               <Input id="name" type="text" placeholder="John Doe" value={data.name} onChange={(event) => change("name", event)} aria-invalid={!!errors.name}/>
               <FieldError>{errors.name}</FieldError>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="username">Username</FieldLabel>
+              <div className="relative">
+                <Input id="username" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" placeholder="johndoe" value={data.username} onChange={(event) => change("username", event)} aria-invalid={!!errors.username || status === "invalid"} className="pr-8"/>
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
+                  {status === "loading" && <LoaderCircle className="size-4 animate-spin text-muted-foreground" />}
+                  {status === "valid" && <CircleCheck className="size-4 text-green-600" />}
+                  {status === "invalid" && <Ban className="size-4 text-destructive" />}
+                </span>
+              </div>
+              <FieldError>{errors.username || errorMessage}</FieldError>
             </Field>
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>

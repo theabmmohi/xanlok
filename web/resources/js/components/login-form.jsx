@@ -10,7 +10,7 @@ import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
 export function LoginForm({ className, ...props }) {
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ email: "", password: "" })
+  const { data, setData, post, processing, errors, clearErrors } = useForm({ identifier: "", password: "" })
   const change = (field, event) => {
     const value = event.target.value
     setData(field, value)
@@ -25,15 +25,15 @@ export function LoginForm({ className, ...props }) {
     <Card>
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
-        <CardDescription>Enter your email below to login to your account</CardDescription>
+        <CardDescription>Enter your email or username below to login to your account</CardDescription>
       </CardHeader>
       <CardContent>
         <form noValidate onSubmit={submit}>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input id="email" type="email" placeholder="name@example.com" value={data.email} onChange={(event) => change("email", event)} aria-invalid={!!errors.email}/>
-              <FieldError>{errors.email}</FieldError>
+              <FieldLabel htmlFor="identifier">Email or username</FieldLabel>
+              <Input id="identifier" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" placeholder="name@example.com" value={data.identifier} onChange={(event) => change("identifier", event)} aria-invalid={!!errors.identifier}/>
+              <FieldError>{errors.identifier}</FieldError>
             </Field>
             <Field>
               <div className="flex items-center">
