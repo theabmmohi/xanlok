@@ -16,22 +16,22 @@ export function RegisterForm({ className, ...props }) {
   const [status, setStatus] = useState("idle") // "idle" | "loading" | "valid" | "invalid"
   const [errorMessage, setErrorMessage] = useState("")
   useEffect(() => {
-    if (!username) {
-      setStatus("idle")
-      setErrorMessage("")
-      return
-    }
-    const ragex = /^[a-z]{5,25}$/
-    if (!ragex.test(username)) {
-      setStatus("invalid")
-      if (username !== username.toLowerCase()) setErrorMessage("Username must contain lowercase letters only.")
-      else if (username.length < 5) setErrorMessage("Username must be at least 5 characters long.")
-      else if (username.length > 25) setErrorMessage("Username cannot exceed 25 characters.")
-      else setErrorMessage("Invalid username format.")
-      return
-    }
     setStatus("loading")
     const timer = setTimeout(async () => {
+      if (!username) {
+        setStatus("idle")
+        setErrorMessage("")
+        return
+      }
+      const ragex = /^[a-z]{5,25}$/
+      if (!ragex.test(username)) {
+        setStatus("invalid")
+        if (username !== username.toLowerCase()) setErrorMessage("Username must contain lowercase letters only.")
+        else if (username.length < 5) setErrorMessage("Username must be at least 5 characters long.")
+        else if (username.length > 25) setErrorMessage("Username cannot exceed 25 characters.")
+        else setErrorMessage("Invalid username format.")
+        return
+      }
       try {
         const resp = await fetch("/check/username", {
           method: "POST",

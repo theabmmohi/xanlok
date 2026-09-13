@@ -32,7 +32,7 @@ export default function AppLayout({ children }) {
   }, [appearance])
   return <>
     <div className="h-svh w-svw flex flex-col">
-      <div className="flex items-center justify-between bg-secondary border-b border-border px-5 py-2 select-none">
+      <header className="flex items-center justify-between bg-secondary border-b border-border px-5 py-2 select-none">
         <div onClick={() => router.get("/")}>
           <span className="font-mono text-lg font-medium text-secondary-foreground">{props.appname}</span>
         </div>
@@ -92,13 +92,13 @@ export default function AppLayout({ children }) {
             </DropdownMenu>:
             <div className="h-full flex items-center gap-3">
               <Button nativeButton={false} variant="ghost" render={<Link href="/login"/>}>Login</Button>
-              <Button nativeButton={false} variant="outline" className="bg-transparent" render={<Link href="/register"/>}>Register</Button>
+              <Button nativeButton={false} variant="outline" render={<Link href="/register"/>}>Register</Button>
             </div>}
         </div>}
-      </div>
-      <div className="flex-1 min-h-full w-full overflow-y-auto p-6">
+      </header>
+      <main className="flex-1 min-h-full w-full overflow-y-auto p-6">
         {children}
-      </div>
+      </main>
     </div>
     <Toaster theme={appearance} richColors={!isDark}/>
   </>
