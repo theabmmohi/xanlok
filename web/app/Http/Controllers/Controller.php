@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class Controller
 {
@@ -25,5 +27,16 @@ class Controller
         }
 
         return ['available' => ! User::where('username', $username)->exists()];
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate(['avatar' => ['required', 'image', 'max:5120']]);
+
+        $image = Image::read($request->file('avatar'))->cover(512, 512);
+        Storage::put("avatars/{$request->user()->id}.jpg", (string) $image->toWebp(quality: 80));
+        $request->user()->touch();
+
+        return back();
     }
 }
