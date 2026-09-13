@@ -1,8 +1,9 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent } from "@/components/ui/dropdown-menu"
-import { Sun, Moon, Monitor, Settings, LogOut, User, Lock } from "lucide-react"
+import { Sun, Moon, Monitor, Settings, LogOut, User, Lock, Ellipsis } from "lucide-react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useState, useEffect, useCallback } from "react"
 import { usePage, router, Link } from "@inertiajs/react"
+import { Github } from "@/components/icons/github"
 import { Button } from "@/components/ui/button"
 import toast, { Toaster } from "@/lib/toaster"
 
@@ -54,7 +55,7 @@ export default function AppLayout({ children }) {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
-                  <DropdownMenuLabel className="select-none">Appearance</DropdownMenuLabel>
+                  <DropdownMenuLabel>Appearance</DropdownMenuLabel>
                   <DropdownMenuRadioGroup value={appearance} onValueChange={setAppearance}>
                     <DropdownMenuRadioItem value="light">
                       <Sun/>Light
@@ -74,13 +75,34 @@ export default function AppLayout({ children }) {
                       <Settings/>Settings
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
-                        <DropdownMenuItem render={<Link href="/settings/profile"/>}>
-                          <User/>Profile
-                        </DropdownMenuItem>
-                        <DropdownMenuItem render={<Link href="/settings/security"/>}>
-                          <Lock/>Security
-                        </DropdownMenuItem>
+                      <DropdownMenuSubContent className="min-w-50">
+                        <DropdownMenuGroup>
+                          <DropdownMenuLabel>Account</DropdownMenuLabel>
+                          <DropdownMenuItem render={<Link href="/settings/profile"/>}>
+                            <User/>Profile
+                          </DropdownMenuItem>
+                          <DropdownMenuItem render={<Link href="/settings/security"/>}>
+                            <Lock/>Security
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator/>
+                        <DropdownMenuGroup>
+                          <DropdownMenuSub>
+                            <DropdownMenuSubTrigger>
+                              <Ellipsis/>More
+                            </DropdownMenuSubTrigger>
+                            <DropdownMenuPortal>
+                              <DropdownMenuSubContent className="min-w-50">
+                                <DropdownMenuGroup>
+                                  <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
+                                  <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
+                                    <Github/>Github
+                                  </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                              </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                          </DropdownMenuSub>
+                        </DropdownMenuGroup>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                   </DropdownMenuSub>

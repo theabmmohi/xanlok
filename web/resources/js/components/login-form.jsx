@@ -1,8 +1,9 @@
 import { cn } from "cn"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import { useForm, Link } from "@inertiajs/react"
@@ -10,7 +11,7 @@ import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
 export function LoginForm({ className, ...props }) {
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ identifier: "", password: "" })
+  const { data, setData, post, processing, errors, clearErrors } = useForm({ identifier: "", password: "", remember: false })
   const change = (field, event) => {
     const value = event.target.value
     setData(field, value)
@@ -42,6 +43,10 @@ export function LoginForm({ className, ...props }) {
               </div>
               <Input id="password" type="password" placeholder="••••••••" value={data.password} onChange={(event) => change("password", event)} aria-invalid={!!errors.password}/>
               <FieldError>{errors.password}</FieldError>
+            </Field>
+            <Field orientation="horizontal">
+              <Checkbox id="remember" checked={data.remember} onCheckedChange={(checked) => setData("remember", checked)}/>
+              <FieldLabel htmlFor="remember">Remember me</FieldLabel>
             </Field>
             <Field>
               <Button processing={processing} type="submit">Login</Button>
