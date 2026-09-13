@@ -34,7 +34,7 @@ class Controller
         $request->validate(['avatar' => ['required', 'image', 'max:5120']]);
 
         $image = Image::read($request->file('avatar'))->cover(512, 512);
-        Storage::put("avatars/{$request->user()->id}.jpg", (string) $image->toWebp(quality: 80));
+        Storage::put("avatars/{$request->user()->id}.webp", (string) $image->toWebp(quality: 80));
         $request->user()->touch();
 
         return back();
