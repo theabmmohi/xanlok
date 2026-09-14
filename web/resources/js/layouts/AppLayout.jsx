@@ -32,8 +32,8 @@ export default function AppLayout({ children }) {
     toast.info(`Appearance switched to ${value}.`)
   }, [appearance])
   return <>
-    <div className="h-svh w-svw flex flex-col">
-      <header className="flex items-center justify-between bg-secondary border-b border-border px-5 py-2 select-none">
+    <div className="min-w-svw w-svw max-w-svw overflow-x-hidden">
+      <header className="px-5 py-2 flex items-center justify-between border-border border-b bg-secondary select-none">
         <div onClick={() => router.get("/")}>
           <span className="font-mono text-lg font-medium text-secondary-foreground">{props.appname}</span>
         </div>
@@ -118,9 +118,7 @@ export default function AppLayout({ children }) {
             </div>}
         </div>}
       </header>
-      <main className="flex-1 min-h-full w-full overflow-y-auto p-6">
-        {children}
-      </main>
+      {children}
     </div>
     <Toaster theme={appearance} richColors={!isDark}/>
   </>
