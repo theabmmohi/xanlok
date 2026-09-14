@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { LoaderCircle, CircleCheck, Ban } from "lucide-react"
 import { useForm, Link } from "@inertiajs/react"
 import { useState, useEffect } from "react"
+import { Google } from "@thesvg/react"
 import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
@@ -116,7 +117,9 @@ export default function Register () {
             <FieldGroup>
               <Field>
                 <Button processing={processing} type="submit">Create Account</Button>
-                <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>Continue with Google</Button>
+                <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>
+                  <Google/>Continue with Google
+                </Button>
                 <FieldDescription className="px-6 text-center">Already have an account? <Link href="/login">Login</Link></FieldDescription>
               </Field>
             </FieldGroup>

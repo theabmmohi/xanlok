@@ -3,7 +3,7 @@ import { Sun, Moon, Monitor, Settings, LogOut, User, Lock, Ellipsis } from "luci
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useState, useEffect, useCallback } from "react"
 import { usePage, router, Link } from "@inertiajs/react"
-import { Github } from "@/components/icons/github"
+import { Github } from "@thesvg/react"
 import { Button } from "@/components/ui/button"
 import toast, { Toaster } from "@/lib/toaster"
 

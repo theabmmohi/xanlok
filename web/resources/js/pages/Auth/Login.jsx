@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import { useForm, Link } from "@inertiajs/react"
+import { Google } from "@thesvg/react"
 import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
@@ -48,7 +49,9 @@ export default function Login () {
             </Field>
             <Field>
               <Button processing={processing} type="submit">Login</Button>
-              <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>Continue with Google</Button>
+              <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>
+                <Google/>Continue with Google
+              </Button>
               <FieldDescription className="text-center">Don&apos;t have an account? <Link href="/register">Register</Link></FieldDescription>
             </Field>
           </FieldGroup>
