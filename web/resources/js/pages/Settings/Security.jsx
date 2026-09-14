@@ -2,8 +2,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 
 export default function Security () {
-  return <main className="p-10">
-    <Card className="max-w-sm mx-auto">
+  return <>
+    <Card className="max-w-sm mx-auto m-5">
       <CardHeader>
         <CardTitle>Security</CardTitle>
         <CardDescription></CardDescription>
@@ -15,5 +15,5 @@ export default function Security () {
         <Button>Save</Button>
       </CardFooter>
     </Card>
-  </main>
+  </>
 }

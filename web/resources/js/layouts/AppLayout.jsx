@@ -32,94 +32,92 @@ export default function AppLayout({ children }) {
     toast.info(`Appearance switched to ${value}.`)
   }, [appearance])
   return <>
-    <div className="min-w-svw w-svw max-w-svw overflow-x-hidden">
-      <header className="px-5 py-2 flex items-center justify-between border-border border-b bg-secondary select-none">
-        <div onClick={() => router.get("/")}>
-          <span className="font-mono text-lg font-medium text-secondary-foreground">{props.appname}</span>
-        </div>
-        {component.startsWith("Auth/") ? <div className="h-10"></div> : <div className="h-10">
-          {props.auth.user?
-            <DropdownMenu>
-              <DropdownMenuTrigger nativeButton={false} render={
-                <Avatar size="lg" className="cursor-pointer">
-                  <AvatarImage src={props.auth.user?.avatar} alt={props.auth.user?.name}/>
-                  <AvatarFallback>{props.auth.user?.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase()}</AvatarFallback>
-                </Avatar>
-              }/>
-              <DropdownMenuContent className="min-w-50">
-                <DropdownMenuGroup>
-                  <div className="p-1 select-none">
-                    <p className="text-sm font-medium truncate">{props.auth.user?.name}</p>
-                    <p className="text-xs text-muted-foreground truncate">{props.auth.user?.email}</p>
-                  </div>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator/>
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-                  <DropdownMenuRadioGroup value={appearance} onValueChange={setAppearance}>
-                    <DropdownMenuRadioItem value="light">
-                      <Sun/>Light
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="dark">
-                      <Moon/>Dark
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="system">
-                      <Monitor/>System
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator/>
-                <DropdownMenuGroup>
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                      <Settings/>Settings
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="min-w-50">
-                        <DropdownMenuGroup>
-                          <DropdownMenuLabel>Account</DropdownMenuLabel>
-                          <DropdownMenuItem render={<Link href="/settings/profile"/>}>
-                            <User/>Profile
-                          </DropdownMenuItem>
-                          <DropdownMenuItem render={<Link href="/settings/security"/>}>
-                            <Lock/>Security
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator/>
-                        <DropdownMenuGroup>
-                          <DropdownMenuSub>
-                            <DropdownMenuSubTrigger>
-                              <Ellipsis/>More
-                            </DropdownMenuSubTrigger>
-                            <DropdownMenuPortal>
-                              <DropdownMenuSubContent className="min-w-50">
-                                <DropdownMenuGroup>
-                                  <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
-                                  <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
-                                    <Github/>Github
-                                  </DropdownMenuItem>
-                                </DropdownMenuGroup>
-                              </DropdownMenuSubContent>
-                            </DropdownMenuPortal>
-                          </DropdownMenuSub>
-                        </DropdownMenuGroup>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
-                  <DropdownMenuItem variant="destructive" onClick={() => router.post("/logout")}>
-                    <LogOut/>Log out
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>:
-            <div className="h-full flex items-center gap-3">
-              <Button nativeButton={false} variant="ghost" render={<Link href="/login"/>}>Login</Button>
-              <Button nativeButton={false} variant="outline" render={<Link href="/register"/>}>Register</Button>
-            </div>}
-        </div>}
-      </header>
-      {children}
-    </div>
+    <header className="px-5 py-2 sticky top-0 z-999 flex items-center justify-between border-border border-b bg-secondary select-none">
+      <div onClick={() => router.get("/")}>
+        <span className="font-mono text-lg font-medium text-secondary-foreground">{props.appname}</span>
+      </div>
+      {component.startsWith("Auth/") ? <div className="h-10"></div> : <div className="h-10">
+        {props.auth.user?
+          <DropdownMenu>
+            <DropdownMenuTrigger nativeButton={false} render={
+              <Avatar size="lg" className="cursor-pointer">
+                <AvatarImage src={props.auth.user?.avatar} alt={props.auth.user?.name}/>
+                <AvatarFallback>{props.auth.user?.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase()}</AvatarFallback>
+              </Avatar>
+            }/>
+            <DropdownMenuContent className="min-w-50">
+              <DropdownMenuGroup>
+                <div className="p-1 select-none">
+                  <p className="text-sm font-medium truncate">{props.auth.user?.name}</p>
+                  <p className="text-xs text-muted-foreground truncate">{props.auth.user?.email}</p>
+                </div>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator/>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+                <DropdownMenuRadioGroup value={appearance} onValueChange={setAppearance}>
+                  <DropdownMenuRadioItem value="light">
+                    <Sun/>Light
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="dark">
+                    <Moon/>Dark
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="system">
+                    <Monitor/>System
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator/>
+              <DropdownMenuGroup>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Settings/>Settings
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="min-w-50">
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>Account</DropdownMenuLabel>
+                        <DropdownMenuItem render={<Link href="/settings/profile"/>}>
+                          <User/>Profile
+                        </DropdownMenuItem>
+                        <DropdownMenuItem render={<Link href="/settings/security"/>}>
+                          <Lock/>Security
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator/>
+                      <DropdownMenuGroup>
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger>
+                            <Ellipsis/>More
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent className="min-w-50">
+                              <DropdownMenuGroup>
+                                <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
+                                <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
+                                  <Github/>Github
+                                </DropdownMenuItem>
+                              </DropdownMenuGroup>
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                      </DropdownMenuGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+                <DropdownMenuItem variant="destructive" onClick={() => router.post("/logout")}>
+                  <LogOut/>Log out
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>:
+          <div className="h-full flex items-center gap-3">
+            <Button nativeButton={false} variant="ghost" render={<Link href="/login"/>}>Login</Button>
+            <Button nativeButton={false} variant="outline" render={<Link href="/register"/>}>Register</Button>
+          </div>}
+      </div>}
+    </header>
+    <main className="p-5 overflow-x-hidden">{children}</main>
     <Toaster theme={appearance} richColors={!isDark}/>
   </>
 }

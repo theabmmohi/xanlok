@@ -73,8 +73,8 @@ export default function Register () {
     down()
     post("/register")
   }
-  return <main className="p-10">
-    <Card className="max-w-sm mx-auto">
+  return <>
+    <Card className="max-w-sm mx-auto m-5">
       <CardHeader>
         <CardTitle>Create an account</CardTitle>
         <CardDescription>Enter your information below to create your account</CardDescription>
@@ -127,5 +127,5 @@ export default function Register () {
         </form>
       </CardContent>
     </Card>
-  </main>
+  </>
 }

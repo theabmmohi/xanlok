@@ -21,8 +21,8 @@ export default function Login () {
     down()
     post("/login")
   }
-  return <main className="p-10">
-    <Card className="max-w-sm mx-auto">
+  return <>
+    <Card className="max-w-sm mx-auto m-5">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>Enter your email or username below to login to your account</CardDescription>
@@ -58,5 +58,5 @@ export default function Login () {
         </form>
       </CardContent>
     </Card>
-  </main>
+  </>
 }
