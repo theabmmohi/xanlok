@@ -20,6 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasUuids;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     /**
      * Get the attributes that should be cast.
      *
@@ -34,6 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     protected function avatar(): Attribute
     {
-        return Attribute::get(fn () => Storage::url("avatars/{$this->id}.webp") . '?' . $this->updated_at->timestamp);
+        return Attribute::get(function () {
+            $timestamp = $this->updated_at?->timestamp ?? now()->timestamp;
+            return Storage::url("avatars/{$this->id}.webp") . '?' . $timestamp;
+        });
     }
 }
