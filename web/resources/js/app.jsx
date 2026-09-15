@@ -13,6 +13,6 @@ createInertiaApp({
     return segs.length ? `${segs.reverse().join(" | ")} - ${base}` : base
   },
   progress: {
-    color: "#4B5563"
+    color: "#EA580C"
   }
 })
