@@ -21,7 +21,7 @@ export default function Profile () {
     put("/user/profile-information", { errorBag: "updateProfileInformation" })
   }
   return <form noValidate onSubmit={submit}>
-    <Card className="max-w-sm mx-auto my-5">
+    <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
         <CardTitle>Profile</CardTitle>
         <CardDescription></CardDescription>

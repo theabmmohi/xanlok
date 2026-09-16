@@ -2,7 +2,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 
 export default function Security () {
-  return <Card className="max-w-sm mx-auto my-5">
+  return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Security</CardTitle>
       <CardDescription></CardDescription>

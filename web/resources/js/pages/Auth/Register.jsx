@@ -73,7 +73,7 @@ export default function Register () {
     down()
     post("/register")
   }
-  return <Card className="max-w-sm mx-auto my-5">
+  return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Create an account</CardTitle>
       <CardDescription>Enter your information below to create your account</CardDescription>

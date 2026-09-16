@@ -21,7 +21,7 @@ export default function Login () {
     down()
     post("/login")
   }
-  return <Card className="max-w-sm mx-auto my-5">
+  return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Login to your account</CardTitle>
       <CardDescription>Enter your email or username below to login to your account</CardDescription>
