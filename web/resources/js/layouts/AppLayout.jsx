@@ -31,6 +31,10 @@ export default function AppLayout({ children }) {
     setAppearanceState(value)
     toast.info(`Appearance switched to ${value}.`)
   }, [appearance])
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get("verified") === "1") toast.success("Email verified successfully!")
+  }, [])
   return <>
     <header className="px-5 py-2 sticky top-0 z-999 flex items-center justify-between border-border border-b bg-secondary select-none">
       <div onClick={() => router.get("/")}>

@@ -2,10 +2,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { usePage, useForm } from "@inertiajs/react"
+import { Save, RefreshCw } from "lucide-react"
+import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { down } from "@/lib/functions"
-import { Pencil } from "lucide-react"
 
 export default function Profile () {
   const { props } = usePage()
@@ -20,6 +21,21 @@ export default function Profile () {
     down()
     put("/user/profile-information", { errorBag: "updateProfileInformation" })
   }
+  const { setData: setAvatar, post: postAvatar, processing: processingAvatar } = useForm({ avatar: null })
+  const fileRef = useRef(null)
+  const pick = () => fileRef.current?.click()
+  const upload = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+    setAvatar("avatar", file)
+    postAvatar("/user/avatar", {
+      forceFormData: true,
+      preserveScroll: true,
+      onSuccess: () => toast.success("Avatar updated."),
+      onError: (error) => toast.error(error.avatar),
+      onFinish: () => { event.target.value = "" }
+    })
+  }
   return <form noValidate onSubmit={submit}>
     <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
@@ -32,7 +48,11 @@ export default function Profile () {
             <AvatarImage src={props.auth.user?.avatar} alt={props.auth.user?.name}/>
             <AvatarFallback className="text-5xl">{props.auth.user?.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase()}</AvatarFallback>
           </Avatar>
-          <Button type="button">Change</Button>
+          <input type="file" accept="image/*" ref={fileRef} onChange={upload} hidden/>
+          <Button processing={processingAvatar} type="button" onClick={pick}>
+            { processingAvatar ? null : <RefreshCw/> }
+            Change
+          </Button>
         </div>
         <FieldGroup>
           <Field>
@@ -48,7 +68,10 @@ export default function Profile () {
         </FieldGroup>
       </CardContent>
       <CardFooter className="border-t flex justify-end">
-        <Button processing={processing} type="submit">Save</Button>
+        <Button processing={processing} type="submit">
+          { processing ? null : <Save/> }
+          Save
+        </Button>
       </CardFooter>
     </Card>
   </form>
