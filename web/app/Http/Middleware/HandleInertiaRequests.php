@@ -40,9 +40,8 @@ class HandleInertiaRequests extends Middleware
             'appname' => config('app.name'),
             'auth' => [
                 'user' => $request->user() ? [
-                    ...$request->user()->only('id', 'name', 'username', 'email'),
+                    ...$request->user()->only('id', 'avatar', 'name', 'username', 'email'),
                     'verified' => $request->user()->hasVerifiedEmail(),
-                    ...$request->user()->only('avatar'),
                 ] : null,
             ],
         ];

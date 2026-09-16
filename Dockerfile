@@ -19,7 +19,9 @@ FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache \
     nginx supervisor bash gettext \
-    libpng-dev oniguruma-dev libxml2-dev libzip-dev sqlite-dev postgresql-dev \
+    libpng-dev libjpeg-turbo-dev freetype-dev libwebp-dev \
+    oniguruma-dev libxml2-dev libzip-dev sqlite-dev postgresql-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install pdo pdo_sqlite pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 WORKDIR /var/www

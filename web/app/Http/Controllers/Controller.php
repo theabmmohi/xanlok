@@ -35,7 +35,7 @@ class Controller
         $request->image('avatar')
             ->cover(512, 512)
             ->toWebp()
-            ->quality(80)
+            ->quality(100)
             ->storePubliclyAs('avatars', "{$request->user()->id}.webp");
         $request->user()->touch();
 
