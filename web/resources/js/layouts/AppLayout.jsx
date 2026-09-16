@@ -95,7 +95,7 @@ export default function AppLayout({ children }) {
                               <DropdownMenuGroup>
                                 <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
                                 <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
-                                  <Github/>Github
+                                  <Github variant="mono"/>Github
                                 </DropdownMenuItem>
                               </DropdownMenuGroup>
                             </DropdownMenuSubContent>
