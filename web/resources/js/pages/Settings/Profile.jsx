@@ -7,6 +7,7 @@ import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { down } from "@/lib/functions"
+import toast from "@/lib/toaster"
 
 export default function Profile () {
   const { props } = usePage()
