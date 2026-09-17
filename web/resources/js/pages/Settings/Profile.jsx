@@ -19,7 +19,11 @@ export default function Profile () {
   const submit = (event) => {
     event.preventDefault()
     down()
-    put("/user/profile-information", { errorBag: "updateProfileInformation" })
+    put("/user/profile-information", {
+      preserveScroll: true,
+      errorBag: "updateProfileInformation",
+      onSuccess: () => toast.success("Profile information updated.")
+    })
   }
   const { setData: setAvatar, post: postAvatar, processing: processingAvatar } = useForm({ avatar: null })
   const fileRef = useRef(null)

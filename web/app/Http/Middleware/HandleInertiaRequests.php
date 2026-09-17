@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user()?->only([
                     'id', 'name', 'username', 'email', 'avatar'
                 ]),
-                'mail' => $request->user()?->only([
+                'email' => $request->user()?->only([
                     'verified', 'pending'
                 ])
             ]

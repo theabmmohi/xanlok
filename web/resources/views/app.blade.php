@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#ffffff">
-    @env("local")
-      <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-      <script>eruda.init()</script>
-    @endenv
+@env("local")
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init()</script>
+@endenv
     <script>
       (() => {
         try {
