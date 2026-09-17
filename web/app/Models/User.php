@@ -36,11 +36,22 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
     protected function avatar(): Attribute
     {
         return Attribute::get(function () {
             $timestamp = $this->updated_at?->timestamp ?? now()->timestamp;
             return Storage::url("avatars/{$this->id}.webp") . '?' . $timestamp;
         });
+    }
+
+    protected function verified(): Attribute
+    {
+        return Attribute::get(fn () => $this->hasVerifiedEmail());
+    }
+
+    protected function pendingEmail(): Attribute
+    {
+        return Attribute::get(fn () => $this->getLatestPendingEmailChange()?->new_email);
     }
 }
