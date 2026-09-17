@@ -72,5 +72,6 @@ class FortifyServiceProvider extends ServiceProvider
         // Inertia Views
         Fortify::loginView(fn () => Inertia::render('Auth/Login'));
         Fortify::registerView(fn () => Inertia::render('Auth/Register'));
+        Fortify::verifyEmailView(fn () => Inertia::render('Auth/verifyEmail'));
     }
 }
