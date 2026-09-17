@@ -40,11 +40,12 @@ class HandleInertiaRequests extends Middleware
             'appname' => config('app.name'),
             'auth' => [
                 'user' => $request->user()?->only([
-                    'id', 'name', 'username',
-                    'email', 'pending_email',
-                    'verified', 'avatar'
+                    'id', 'name', 'username', 'email', 'avatar'
+                ]),
+                'mail' => $request->user()?->only([
+                    'pending', 'verified'
                 ])
-            ],
+            ]
         ];
     }
 }

@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::get(fn () => $this->hasVerifiedEmail());
     }
 
-    protected function pendingEmail(): Attribute
+    protected function pending(): Attribute
     {
         return Attribute::get(fn () => $this->getLatestPendingEmailChange()?->new_email);
     }

@@ -15,9 +15,9 @@ class EmailChangeNotification extends BaseNotification
             ->greeting('Hello!')
             ->line('We received a request to change the email address for your account to **' . $this->newEmail . '**. If you requested this change, please confirm it below.')
             ->action('Change Email', $confirmUrl)
-            ->line('**Didn\'t request this change?** Click below to deny it and secure your account.')
+            ->line('**Didn\'t request this change?** Click below to deny it and secure your account. These links expires in **' . config('email-change-confirmation.confirmation_email_expire_minutes') . ' minutes**.')
             ->line($this->buildDenyButton($denyUrl))
-            ->line('This link expires in **' . config('email-change-confirmation.confirmation_email_expire_minutes') . ' minutes**.');
+            ->line('This links expires in **' . config('email-change-confirmation.confirmation_email_expire_minutes') . ' minutes**.');
     }
 
     protected function buildDenyButton(string $denyUrl): HtmlString
