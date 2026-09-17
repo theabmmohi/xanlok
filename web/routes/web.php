@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 
-Route::inertia('/', 'Index');
+Route::inertia('/', 'Index')->name('index');
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/settings/profile', 'Settings/Profile');
