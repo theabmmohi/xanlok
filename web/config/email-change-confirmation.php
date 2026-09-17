@@ -130,7 +130,7 @@ return [
     */
     'email_change_model' => MilenMk\LaravelEmailChangeConfirmation\Models\EmailChange::class,
     'email_change_controller' => MilenMk\LaravelEmailChangeConfirmation\Controllers\EmailChangeController::class,
-    'email_change_notification' => MilenMk\LaravelEmailChangeConfirmation\Notifications\EmailChangeConfirmation::class,
+    'email_change_notification' => App\Notifications\EmailChangeNotification::class,
     'email_change_service' => MilenMk\LaravelEmailChangeConfirmation\Services\EmailChangeService::class,
 
     /*
