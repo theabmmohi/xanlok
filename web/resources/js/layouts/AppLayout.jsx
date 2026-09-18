@@ -130,15 +130,7 @@ export default function AppLayout({ children }) {
     <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
-          <AlertDialogTitle>Change your email address?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Changing your email involves a 3-step security process:
-            <ol className="list-decimal pl-5 mt-2 space-y-1 text-left">
-              <li><strong>Approve the request:</strong> A link will be sent to your current email. If you deny it, nothing changes.</li>
-              <li><strong>Log in with new email:</strong> Once approved from your old inbox, your email updates immediately, allowing you to sign in.</li>
-              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your new inbox.</li>
-            </ol>
-          </AlertDialogDescription>
+          <AlertDialogTitle>Are you sure to log out?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
