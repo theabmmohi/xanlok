@@ -4,12 +4,14 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useForm, Link } from "@inertiajs/react"
+import { usePage, useForm, Link } from "@inertiajs/react"
 import { Google } from "@thesvg/react"
 import { down } from "@/lib/functions"
+import { useEffect } from "react"
 import toast from "@/lib/toaster"
 
 export default function Login () {
+  const { props } = usePage()
   const { data, setData, post, processing, errors, clearErrors } = useForm({ identifier: "", password: "", remember: false })
   const change = (field, event) => {
     const value = event.target.value
@@ -21,6 +23,10 @@ export default function Login () {
     down()
     post("/login")
   }
+  useEffect(() => {
+    const status = props.flash.status
+    if (status) toast.info(status)
+  }, [props.flash.status])
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Login to your account</CardTitle>

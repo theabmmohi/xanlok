@@ -9,7 +9,14 @@ createInertiaApp({
     const base = page.props.appname
     if (title) return `${title} - ${base}`
     const [pathname] = page.url.split("?")
-    const segs = pathname.split("/").filter(Boolean).map(seg => seg.charAt(0).toUpperCase() + seg.slice(1))
+    const segs = pathname
+      .split("/")
+      .filter(Boolean)
+      .map(seg =>
+        seg
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, char => char.toUpperCase())
+      )
     return segs.length ? `${segs.reverse().join(" | ")} - ${base}` : base
   },
   progress: {

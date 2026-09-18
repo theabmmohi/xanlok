@@ -3,9 +3,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { usePage, useForm } from "@inertiajs/react"
+import { usePage, useForm, Head } from "@inertiajs/react"
 import { down } from "@/lib/functions"
-import { useEffect } from "react"
 import toast from "@/lib/toaster"
 
 export default function ResetPassword ({ token, email }) {
@@ -19,13 +18,12 @@ export default function ResetPassword ({ token, email }) {
   const submit = (event) => {
     event.preventDefault()
     down()
-    post("/reset-password")
+    post("/reset-password", {
+      preserveScroll: true,
+      onError: (error) => toast.error(error.email)
+    })
   }
-  useEffect(() => {
-    const status = props.flash.status
-    if (status) toast.info(status)
-  }, [props.flash.status])
-  return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
+  return <Card className="max-w-sm sm:mx-auto mx-5 my-5"><Head title={`Reset Password - ${props.appname}`}/>
     <CardHeader>
       <CardTitle>Reset your password</CardTitle>
       <CardDescription>Enter a new password for {email}</CardDescription>
@@ -44,6 +42,7 @@ export default function ResetPassword ({ token, email }) {
             <FieldError>{errors.password_confirmation}</FieldError>
           </Field>
           <Field>
+            <FieldError>{errors.email}</FieldError>
             <Button processing={processing} type="submit">Reset password</Button>
           </Field>
         </FieldGroup>
