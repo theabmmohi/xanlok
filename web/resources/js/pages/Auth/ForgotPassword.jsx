@@ -3,13 +3,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { usePage, useForm, Link } from "@inertiajs/react"
+import { useForm, Link } from "@inertiajs/react"
 import { down } from "@/lib/functions"
-import { useEffect } from "react"
 import toast from "@/lib/toaster"
 
 export default function ForgotPassword () {
-  const { props } = usePage()
   const { data, setData, post, processing, errors, clearErrors } = useForm({ email: "" })
   const change = (field, event) => {
     const value = event.target.value
@@ -21,10 +19,6 @@ export default function ForgotPassword () {
     down()
     post("/forgot-password")
   }
-  useEffect(() => {
-    const status = props.flash.status
-    if (status) toast.info(status)
-  }, [props.flash.status])
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Forgot your password?</CardTitle>
