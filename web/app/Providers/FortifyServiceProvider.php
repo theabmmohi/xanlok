@@ -18,6 +18,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Responses\VerifyEmailResponse;
 use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract;
+use App\Http\Responses\ProfileInformationUpdatedResponse;
+use Laravel\Fortify\Contracts\ProfileInformationUpdatedResponse as ProfileInformationUpdatedResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
+        $this->app->singleton(ProfileInformationUpdatedResponseContract::class, ProfileInformationUpdatedResponse::class);
     }
 
     /**
