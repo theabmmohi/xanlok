@@ -32,10 +32,6 @@ export default function AppLayout({ children }) {
     toast.info(`Appearance switched to ${value}.`)
   }, [appearance])
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get("verified") === "1") toast.success("Email verified successfully!")
-  }, [])
-  useEffect(() => {
     Object.entries(props.flash).forEach(([key, msg]) => {
       if (!msg) return
       const fn = typeof toast[key] === "function" ? toast[key] : toast.info
