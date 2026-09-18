@@ -1,9 +1,10 @@
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { usePage, useForm } from "@inertiajs/react"
 import { Save, RefreshCw } from "lucide-react"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { down } from "@/lib/functions"
@@ -11,20 +12,26 @@ import toast from "@/lib/toaster"
 
 export default function Profile () {
   const { props } = usePage()
+  const [dialogOpen, setDialogOpen] = useState(false)
   const { data, setData, put, processing, errors, clearErrors } = useForm({ name: props.auth.user?.name, email: props.auth.user?.email })
   const change = (field, event) => {
     const value = event.target.value
     setData(field, value)
     clearErrors(field)
   }
+  const save = () => put("/user/profile-information", {
+    preserveScroll: true,
+    errorBag: "updateProfileInformation",
+    onSuccess: () => toast.success("Profile information updated.")
+  })
   const submit = (event) => {
     event.preventDefault()
     down()
-    put("/user/profile-information", {
-      preserveScroll: true,
-      errorBag: "updateProfileInformation",
-      onSuccess: () => toast.success("Profile information updated.")
-    })
+    if(data.email !== props.auth.user?.email) {
+      setDialogOpen(true)
+      return
+    }
+    save()
   }
   const { setData: setAvatar, post: postAvatar, processing: processingAvatar } = useForm({ avatar: null })
   const fileRef = useRef(null)
@@ -79,5 +86,24 @@ export default function Profile () {
         </Button>
       </CardFooter>
     </Card>
+    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Change your email address?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Changing your email involves a 3-step security process:
+            <ol className="list-decimal pl-5 mt-2 space-y-1 text-left">
+              <li><strong>Approve the request:</strong> A link will be sent to your current email. If you deny it, nothing changes.</li>
+              <li><strong>Log in with new email:</strong> Once approved from your old inbox, your email updates immediately, allowing you to sign in.</li>
+              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your new inbox.</li>
+            </ol>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Don&apos;t change</AlertDialogCancel>
+          <AlertDialogAction onClick={() => { setDialogOpen(false); save() }}>I understand</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   </form>
 }

@@ -1,4 +1,5 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent } from "@/components/ui/dropdown-menu"
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog"
 import { Sun, Moon, Monitor, Settings, LogOut, User, Lock, Ellipsis } from "lucide-react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useState, useEffect, useCallback } from "react"
@@ -11,6 +12,7 @@ export default function AppLayout({ children }) {
   const { component, props } = usePage()
   const [appearance, setAppearanceState] = useState("")
   const [sysDark, setSysDark] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
   useEffect(() => {
     setAppearanceState(localStorage.getItem("appearance"))
     setSysDark(window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -112,7 +114,7 @@ export default function AppLayout({ children }) {
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
-                <DropdownMenuItem variant="destructive" onClick={() => router.post("/logout")}>
+                <DropdownMenuItem variant="destructive" onClick={() => setDialogOpen(true)}>
                   <LogOut/>Log out
                 </DropdownMenuItem>
               </DropdownMenuGroup>
@@ -125,6 +127,25 @@ export default function AppLayout({ children }) {
       </div>}
     </header>
     <main className="p-5 overflow-x-hidden">{children}</main>
+    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Change your email address?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Changing your email involves a 3-step security process:
+            <ol className="list-decimal pl-5 mt-2 space-y-1 text-left">
+              <li><strong>Approve the request:</strong> A link will be sent to your current email. If you deny it, nothing changes.</li>
+              <li><strong>Log in with new email:</strong> Once approved from your old inbox, your email updates immediately, allowing you to sign in.</li>
+              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your new inbox.</li>
+            </ol>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => { setDialogOpen(false); router.post("/logout") }}>Log out</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
     <Toaster theme={appearance} richColors={!isDark}/>
   </>
 }
