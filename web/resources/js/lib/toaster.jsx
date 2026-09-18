@@ -1,6 +1,6 @@
-import { Toaster as Sonner, toast } from "sonner"
+import { Toaster as Sonner } from "sonner"
+export { toast as default } from "sonner"
 
-export default toast
 export function Toaster ({
   theme = "system",
   richColors = false

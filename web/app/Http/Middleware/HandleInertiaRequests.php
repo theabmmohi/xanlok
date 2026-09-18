@@ -45,7 +45,10 @@ class HandleInertiaRequests extends Middleware
                 'email' => $request->user()?->only([
                     'verified', 'pending'
                 ])
-            ]
+            ],
+            'flash' => [
+                'status' => fn () => $request->session()->get('status'),
+            ],
         ];
     }
 }
