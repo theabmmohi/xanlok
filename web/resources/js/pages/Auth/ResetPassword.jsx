@@ -24,7 +24,7 @@ export default function ResetPassword ({ token, email }) {
   useEffect(() => {
     const status = props.flash.status
     if (status) toast.info(status)
-  }, [])
+  }, [props.flash.status])
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
       <CardTitle>Reset your password</CardTitle>
