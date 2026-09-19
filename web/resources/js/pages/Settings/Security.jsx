@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Passkeys } from "@laravel/passkeys"
 
 export default function Security () {
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">

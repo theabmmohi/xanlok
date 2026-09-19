@@ -13,13 +13,15 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use MilenMk\LaravelEmailChangeConfirmation\Traits\HasEmailChangeConfirmation;
+use Laravel\Fortify\Contracts\PasskeyUser;
+use Laravel\Fortify\PasskeyAuthenticatable;
 
 #[Fillable(['name', 'username', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasUuids, HasEmailChangeConfirmation;
+    use HasFactory, Notifiable, HasUuids, HasEmailChangeConfirmation, PasskeyAuthenticatable;
 
     public $incrementing = false;
     protected $keyType = 'string';
