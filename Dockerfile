@@ -24,8 +24,8 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install pdo pdo_sqlite pdo_pgsql mbstring exif pcntl bcmath gd zip
 
-RUN echo "upload_max_filesize=5M" > /etc/php84/conf.d/99-uploads.ini \
-    && echo "post_max_size=10M" >> /etc/php84/conf.d/99-uploads.ini
+RUN echo "upload_max_filesize=5M" > "$PHP_INI_DIR/conf.d/99-uploads.ini" \
+    && echo "post_max_size=10M" >> "$PHP_INI_DIR/conf.d/99-uploads.ini"
 
 WORKDIR /var/www
 
