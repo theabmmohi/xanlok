@@ -8,8 +8,8 @@ export function Toaster ({
   return <Sonner
     theme={theme}
     richColors={richColors}
-    swipeDirections={["left", "right"]}
-    position="bottom-center"
+    swipeDirections={["top"]}
+    position="top-center"
     toastOptions={{
       duration: 5000
     }}

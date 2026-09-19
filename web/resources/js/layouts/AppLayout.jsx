@@ -1,6 +1,6 @@
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent } from "@/components/ui/dropdown-menu"
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog"
-import { Sun, Moon, Monitor, Settings, LogOut, User, Lock, Ellipsis } from "lucide-react"
+import { BadgeCheck, BadgeAlert, BadgeQuestionMark, Sun, Moon, Monitor, Settings, LogOut, Info, User, Lock } from "lucide-react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useState, useEffect, useCallback } from "react"
 import { usePage, router, Link } from "@inertiajs/react"
@@ -40,6 +40,7 @@ export default function AppLayout({ children }) {
       fn(msg)
     })
   }, [props.flash])
+  const EmailIcon = props.auth.email?.verified ? BadgeCheck : BadgeAlert
   return <>
     <header className="px-5 py-2 sticky top-0 z-999 flex items-center justify-between border-border border-b bg-secondary select-none">
       <div onClick={() => router.get("/")}>
@@ -57,8 +58,17 @@ export default function AppLayout({ children }) {
             <DropdownMenuContent className="min-w-50">
               <DropdownMenuGroup>
                 <div className="p-1 select-none">
-                  <p className="text-sm font-medium truncate">{props.auth.user?.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">{props.auth.user?.email}</p>
+                  <div>
+                    <p className="text-sm font-medium truncate">{props.auth.user?.name}</p>
+                  </div>
+                  <div className="flex items-center">
+                    <p className="flex-1 text-xs text-muted-foreground truncate">{props.auth.user?.email}</p>
+                    <EmailIcon size={16} className={props.auth.email?.verified ? "text-green-400" : "text-destructive"}/>
+                  </div>
+                  {props.auth.email?.pending && <div className="flex items-center">
+                    <p className="flex-1 text-xs text-muted-foreground truncate">{props.auth.email?.pending}</p>
+                    <BadgeQuestionMark size={16} className="text-destructive"/>
+                  </div>}
                 </div>
               </DropdownMenuGroup>
               <DropdownMenuSeparator/>
@@ -93,27 +103,27 @@ export default function AppLayout({ children }) {
                           <Lock/>Security
                         </DropdownMenuItem>
                       </DropdownMenuGroup>
-                      <DropdownMenuSeparator/>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Info/>About {props.appname}
+                    </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="min-w-50">
                       <DropdownMenuGroup>
-                        <DropdownMenuSub>
-                          <DropdownMenuSubTrigger>
-                            <Ellipsis/>More
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent className="min-w-50">
-                              <DropdownMenuGroup>
-                                <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
-                                <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
-                                  <Github variant="mono"/>Github
-                                </DropdownMenuItem>
-                              </DropdownMenuGroup>
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
-                        </DropdownMenuSub>
+                        <DropdownMenuLabel>{props.appname}</DropdownMenuLabel>
+                        <DropdownMenuItem render={<a href="https://github.com/theabmmohi/xanlok" target="_blank" rel="noopener noreferrer"/>}>
+                          <Github variant="mono"/>Github
+                        </DropdownMenuItem>
                       </DropdownMenuGroup>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator/>
+              <DropdownMenuGroup>
                 <DropdownMenuItem variant="destructive" onClick={() => setDialogOpen(true)}>
                   <LogOut/>Log out
                 </DropdownMenuItem>

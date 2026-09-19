@@ -90,12 +90,12 @@ export default function Profile () {
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogTitle>Change your email address?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription render={<div/>}>
             Changing your email involves a 3-step security process:
             <ol className="list-decimal pl-5 mt-2 space-y-1 text-left">
-              <li><strong>Approve the request:</strong> A link will be sent to your current email. If you deny it, nothing changes.</li>
-              <li><strong>Log in with new email:</strong> Once approved from your old inbox, your email updates immediately, allowing you to sign in.</li>
-              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your new inbox.</li>
+              <li><strong>Approve the request:</strong> A link will be sent to <strong>{props.auth.user?.email}</strong>. If you deny it, nothing changes.</li>
+              <li><strong>Log in with new email:</strong> Once approved from your <strong>{props.auth.user?.email}</strong> inbox, your email updates immediately to <strong>{data.email}</strong>, allowing you to sign in.</li>
+              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your {data.email} inbox.</li>
             </ol>
           </AlertDialogDescription>
         </AlertDialogHeader>
