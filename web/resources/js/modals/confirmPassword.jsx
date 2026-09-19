@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "@inertiajs/react"
 import { useState } from "react"
 import toast from "@/lib/toaster"
-import axios from "axios"
 
 export default function ConfirmPassword ({ onConfirm, children }) {
   const [open, setOpen] = useState(false)
@@ -14,7 +13,9 @@ export default function ConfirmPassword ({ onConfirm, children }) {
   const trigger = async () => {
     setProcessing(true)
     try {
-      const { data: status } = await axios.get("/user/confirmed-password-status")
+      const resp = await fetch("/user/confirmed-password-status")
+      if (!resp.ok) throw new Error()
+      const status = await resp.json()
       if (status.confirmed) {
         onConfirm()
         return

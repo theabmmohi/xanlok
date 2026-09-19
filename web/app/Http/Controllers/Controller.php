@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class Controller
 {
@@ -28,7 +29,7 @@ class Controller
         return ['available' => ! User::where('username', $username)->exists()];
     }
 
-    public function updateAvatar(Request $request)
+    public function userAvatar(Request $request)
     {
         $request->validate(['avatar' => ['required', 'image', 'max:5120']]);
 
@@ -40,5 +41,14 @@ class Controller
         $request->user()->touch();
 
         return back();
+    }
+
+    public function settingsSecurity(Request $request)
+    {
+        return Inertia::render('Settings/Security', [
+            'passkeys' => $request->user()->passkeys()->get([
+                'id', 'name', 'last_used_at', 'created_at'
+            ])
+        ]);
     }
 }

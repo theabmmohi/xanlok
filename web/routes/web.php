@@ -7,8 +7,9 @@ Route::inertia('/', 'Index')->name('index');
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/settings/profile', 'Settings/Profile');
-    Route::inertia('/settings/security', 'Settings/Security');
-    Route::post('/user/avatar', [Controller::class, 'updateAvatar'])
+    Route::get('/settings/security', [Controller::class, 'settingsSecurity'])
+        ->name('settings.security');
+    Route::post('/user/avatar', [Controller::class, 'userAvatar'])
         ->name('user-avatar.update');
 });
 

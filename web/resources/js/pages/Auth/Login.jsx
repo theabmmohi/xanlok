@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useForm, Link } from "@inertiajs/react"
+import { useForm, Link, router } from "@inertiajs/react"
 import { Fingerprint } from "lucide-react"
 import { Google } from "@thesvg/react"
 import { down } from "@/lib/functions"
