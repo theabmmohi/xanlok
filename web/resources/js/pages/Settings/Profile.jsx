@@ -1,5 +1,5 @@
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { usePage, useForm } from "@inertiajs/react"
@@ -57,7 +57,6 @@ export default function Profile () {
     <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
         <CardTitle>Profile</CardTitle>
-        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         <div className="flex justify-between items-center">

@@ -14,7 +14,9 @@ import toast from "@/lib/toaster"
 
 export default function Login () {
   const loginForm = useForm({ identifier: "", password: "", remember: false })
-  const { verify, isLoading: passkeyLoading } = usePasskeyVerify({
+  const { verify: verifyPasskey, isLoading: loadingPasskey } = usePasskeyVerify({
+    // autofill
+    // remember
     onSuccess: (response) => router.visit(response.redirect ?? "/"),
     onError: (error) => toast.error(error?.message ?? "Passkey login failed.")
   })
@@ -59,8 +61,8 @@ export default function Login () {
               <Google/>
               Continue with Google
             </Button>
-            <Button variant="outline" type="button" processing={passkeyLoading} onClick={verify}>
-              { passkeyLoading ? null : <Fingerprint/> }
+            <Button variant="outline" type="button" processing={loadingPasskey} onClick={verifyPasskey}>
+              { loadingPasskey ? null : <Fingerprint/> }
               Continue with passkey
             </Button>
             <FieldDescription className="text-center">Don&apos;t have an account? <Link href="/register">Register</Link></FieldDescription>
