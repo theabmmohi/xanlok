@@ -84,5 +84,6 @@ class FortifyServiceProvider extends ServiceProvider
             'token' => $request->route('token'),
             'email' => $request->email
         ]));
+        Fortify::confirmPasswordView(fn () => Inertia::render('Auth/ConfirmPassword'));
     }
 }

@@ -50,7 +50,7 @@ export default function Profile () {
       preserveScroll: true,
       onSuccess: () => toast.success("Avatar updated."),
       onError: (error) => toast.error(error.avatar),
-      onFinish: () => { event.target.value = "" }
+      onFinish: () => event.target.value = ""
     })
   }
   return <form noValidate onSubmit={submit}>
