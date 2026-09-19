@@ -10,16 +10,16 @@ import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
 export default function Login () {
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ identifier: "", password: "", remember: false })
+  const loginForm = useForm({ identifier: "", password: "", remember: false })
   const change = (field, event) => {
     const value = event.target.value
-    setData(field, value)
-    clearErrors(field)
+    loginForm.setData(field, value)
+    loginForm.clearErrors(field)
   }
   const submit = (event) => {
     event.preventDefault()
     down()
-    post("/login")
+    loginForm.post("/login")
   }
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
@@ -31,23 +31,23 @@ export default function Login () {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="identifier">Email or username</FieldLabel>
-            <Input id="identifier" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" placeholder="name@example.com" value={data.identifier} onChange={(event) => change("identifier", event)} aria-invalid={!!errors.identifier}/>
-            <FieldError>{errors.identifier}</FieldError>
+            <Input id="identifier" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" placeholder="name@example.com" value={loginForm.data.identifier} onChange={(event) => change("identifier", event)} aria-invalid={!!loginForm.errors.identifier}/>
+            <FieldError>{loginForm.errors.identifier}</FieldError>
           </Field>
           <Field>
             <div className="flex items-center">
               <FieldLabel htmlFor="password">Password</FieldLabel>
               <Link href="/forgot-password" className="ml-auto inline-block text-sm underline-offset-4 hover:underline">Forgot your password?</Link>
             </div>
-            <Input id="password" type="password" placeholder="••••••••" value={data.password} onChange={(event) => change("password", event)} aria-invalid={!!errors.password}/>
-            <FieldError>{errors.password}</FieldError>
+            <Input id="password" type="password" placeholder="••••••••" value={loginForm.data.password} onChange={(event) => change("password", event)} aria-invalid={!!loginForm.errors.password}/>
+            <FieldError>{loginForm.errors.password}</FieldError>
           </Field>
           <Field orientation="horizontal">
-            <Checkbox id="remember" checked={data.remember} onCheckedChange={(checked) => setData("remember", checked)}/>
+            <Checkbox id="remember" checked={loginForm.data.remember} onCheckedChange={(checked) => loginForm.setData("remember", checked)}/>
             <FieldLabel htmlFor="remember">Remember me</FieldLabel>
           </Field>
           <Field>
-            <Button processing={processing} type="submit">Login</Button>
+            <Button processing={loginForm.processing} type="submit">Login</Button>
             <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>
               <Google/>Continue with Google
             </Button>

@@ -9,16 +9,16 @@ import toast from "@/lib/toaster"
 
 export default function ResetPassword ({ token, email }) {
   const { props } = usePage()
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ token, email, password: "", password_confirmation: "" })
+  const resetPasswordForm = useForm({ token, email, password: "", password_confirmation: "" })
   const change = (field, event) => {
     const value = event.target.value
-    setData(field, value)
-    clearErrors(field)
+    resetPasswordForm.setData(field, value)
+    resetPasswordForm.clearErrors(field)
   }
   const submit = (event) => {
     event.preventDefault()
     down()
-    post("/reset-password", {
+    resetPasswordForm.post("/reset-password", {
       preserveScroll: true,
       onError: () => toast.error("This password reset link is either expired or used.")
     })
@@ -33,17 +33,17 @@ export default function ResetPassword ({ token, email }) {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="password">New password</FieldLabel>
-            <Input id="password" type="password" placeholder="••••••••" value={data.password} onChange={(event) => change("password", event)} aria-invalid={!!errors.password}/>
-            <FieldError>{errors.password}</FieldError>
+            <Input id="password" type="password" placeholder="••••••••" value={resetPasswordForm.data.password} onChange={(event) => change("password", event)} aria-invalid={!!resetPasswordForm.errors.password}/>
+            <FieldError>{resetPasswordForm.errors.password}</FieldError>
           </Field>
           <Field>
             <FieldLabel htmlFor="password_confirmation">Confirm password</FieldLabel>
-            <Input id="password_confirmation" type="password" placeholder="••••••••" value={data.password_confirmation} onChange={(event) => change("password_confirmation", event)} aria-invalid={!!errors.password_confirmation}/>
-            <FieldError>{errors.password_confirmation}</FieldError>
+            <Input id="password_confirmation" type="password" placeholder="••••••••" value={resetPasswordForm.data.password_confirmation} onChange={(event) => change("password_confirmation", event)} aria-invalid={!!resetPasswordForm.errors.password_confirmation}/>
+            <FieldError>{resetPasswordForm.errors.password_confirmation}</FieldError>
           </Field>
           <Field>
-            <FieldError>{errors.email}</FieldError>
-            <Button processing={processing} type="submit">Reset password</Button>
+            <FieldError>{resetPasswordForm.errors.email}</FieldError>
+            <Button processing={resetPasswordForm.processing} type="submit">Reset password</Button>
           </Field>
         </FieldGroup>
       </form>

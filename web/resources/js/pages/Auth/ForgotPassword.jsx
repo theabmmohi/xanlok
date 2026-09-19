@@ -8,16 +8,16 @@ import { down } from "@/lib/functions"
 import toast from "@/lib/toaster"
 
 export default function ForgotPassword () {
-  const { data, setData, post, processing, errors, clearErrors } = useForm({ email: "" })
+  const forgotPasswordForm = useForm({ email: "" })
   const change = (field, event) => {
     const value = event.target.value
-    setData(field, value)
-    clearErrors(field)
+    forgotPasswordForm.setData(field, value)
+    forgotPasswordForm.clearErrors(field)
   }
   const submit = (event) => {
     event.preventDefault()
     down()
-    post("/forgot-password")
+    forgotPasswordForm.post("/forgot-password")
   }
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
@@ -29,11 +29,11 @@ export default function ForgotPassword () {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input id="email" type="email" placeholder="name@example.com" value={data.email} onChange={(event) => change("email", event)} aria-invalid={!!errors.email}/>
-            <FieldError>{errors.email}</FieldError>
+            <Input id="email" type="email" placeholder="name@example.com" value={forgotPasswordForm.data.email} onChange={(event) => change("email", event)} aria-invalid={!!forgotPasswordForm.errors.email}/>
+            <FieldError>{forgotPasswordForm.errors.email}</FieldError>
           </Field>
           <Field>
-            <Button processing={processing} type="submit">Send reset link</Button>
+            <Button processing={forgotPasswordForm.processing} type="submit">Send reset link</Button>
             <FieldDescription className="text-center">Remembered it? <Link href="/login">Back to login</Link></FieldDescription>
           </Field>
         </FieldGroup>

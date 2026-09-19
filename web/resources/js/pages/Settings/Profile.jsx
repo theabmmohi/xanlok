@@ -13,13 +13,13 @@ import toast from "@/lib/toaster"
 export default function Profile () {
   const { props } = usePage()
   const [dialogOpen, setDialogOpen] = useState(false)
-  const { data, setData, put, processing, errors, clearErrors } = useForm({ name: props.auth.user?.name, email: props.auth.user?.email })
+  const profileForm = useForm({ name: props.auth.user?.name, email: props.auth.user?.email })
   const change = (field, event) => {
     const value = event.target.value
-    setData(field, value)
-    clearErrors(field)
+    profileForm.setData(field, value)
+    profileForm.clearErrors(field)
   }
-  const save = () => put("/user/profile-information", {
+  const save = () => profileForm.put("/user/profile-information", {
     preserveScroll: true,
     errorBag: "updateProfileInformation",
     onSuccess: () => toast.success("Profile information updated.")
@@ -27,13 +27,13 @@ export default function Profile () {
   const submit = (event) => {
     event.preventDefault()
     down()
-    if(data.email !== props.auth.user?.email) {
+    if(profileForm.data.email !== props.auth.user?.email) {
       setDialogOpen(true)
       return
     }
     save()
   }
-  const { setData: setAvatar, post: postAvatar, processing: processingAvatar } = useForm({ avatar: null })
+  const avatarForm = useForm({ avatar: null })
   const fileRef = useRef(null)
   const pick = () => fileRef.current?.click()
   const upload = (event) => {
@@ -41,11 +41,11 @@ export default function Profile () {
     if (!file) return
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Max 5MB image allowed.")
-      e.target.value = ""
+      event.target.value = ""
       return
     }
-    setAvatar("avatar", file)
-    postAvatar("/user/avatar", {
+    avatarForm.transform(() => ({ avatar: file }))
+    avatarForm.post("/user/avatar", {
       forceFormData: true,
       preserveScroll: true,
       onSuccess: () => toast.success("Avatar updated."),
@@ -66,27 +66,27 @@ export default function Profile () {
             <AvatarFallback className="text-5xl">{props.auth.user?.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase()}</AvatarFallback>
           </Avatar>
           <input type="file" accept="image/*" ref={fileRef} onChange={upload} hidden/>
-          <Button processing={processingAvatar} type="button" onClick={pick}>
-            { processingAvatar ? null : <RefreshCw/> }
+          <Button processing={avatarForm.processing} type="button" onClick={pick}>
+            { avatarForm.processing ? null : <RefreshCw/> }
             Change
           </Button>
         </div>
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="name">Full Name</FieldLabel>
-            <Input id="name" type="text" placeholder="John Doe" value={data.name} onChange={(event) => change("name", event)} aria-invalid={!!errors.name}/>
-            <FieldError>{errors.name}</FieldError>
+            <Input id="name" type="text" placeholder="John Doe" value={profileForm.data.name} onChange={(event) => change("name", event)} aria-invalid={!!profileForm.errors.name}/>
+            <FieldError>{profileForm.errors.name}</FieldError>
           </Field>
           <Field>
             <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input id="email" type="email" placeholder="name@example.com" value={data.email} onChange={(event) => change("email", event)} aria-invalid={!!errors.email}/>
-            <FieldError>{errors.email}</FieldError>
+            <Input id="email" type="email" placeholder="name@example.com" value={profileForm.data.email} onChange={(event) => change("email", event)} aria-invalid={!!profileForm.errors.email}/>
+            <FieldError>{profileForm.errors.email}</FieldError>
           </Field>
         </FieldGroup>
       </CardContent>
       <CardFooter className="border-t flex justify-end">
-        <Button processing={processing} type="submit">
-          { processing ? null : <Save/> }
+        <Button processing={profileForm.processing} type="submit">
+          { profileForm.processing ? null : <Save/> }
           Save
         </Button>
       </CardFooter>
@@ -99,8 +99,8 @@ export default function Profile () {
             Changing your email involves a 3-step security process:
             <ol className="list-decimal pl-5 mt-2 space-y-1 text-left">
               <li><strong>Approve the request:</strong> A link will be sent to <strong>{props.auth.user?.email}</strong>. If you deny it, nothing changes.</li>
-              <li><strong>Log in with new email:</strong> Once approved from your <strong>{props.auth.user?.email}</strong> inbox, your email updates immediately to <strong>{data.email}</strong>, allowing you to sign in.</li>
-              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your {data.email} inbox.</li>
+              <li><strong>Log in with new email:</strong> Once approved from your <strong>{props.auth.user?.email}</strong> inbox, your email updates immediately to <strong>{profileForm.data.email}</strong>, allowing you to sign in.</li>
+              <li><strong>Verify the new address:</strong> Your new email will remain "unverified" until you click the confirmation link sent to your {profileForm.data.email} inbox.</li>
             </ol>
           </AlertDialogDescription>
         </AlertDialogHeader>
