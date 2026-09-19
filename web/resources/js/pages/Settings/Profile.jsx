@@ -39,6 +39,11 @@ export default function Profile () {
   const upload = (event) => {
     const file = event.target.files[0]
     if (!file) return
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Max 5MB image allowed.")
+      e.target.value = ""
+      return
+    }
     setAvatar("avatar", file)
     postAvatar("/user/avatar", {
       forceFormData: true,
