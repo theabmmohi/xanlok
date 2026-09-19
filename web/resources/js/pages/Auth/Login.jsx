@@ -44,7 +44,7 @@ export default function Login () {
           <Field>
             <div className="flex items-center">
               <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Link href="/forgot-password" className="ml-auto">Forgot your password?</Link>
+              <Link href="/forgot-password" className="ml-auto inline-block">Forgot password?</Link>
             </div>
             <Input id="password" type="password" placeholder="••••••••" value={loginForm.data.password} onChange={(event) => change("password", event)} aria-invalid={!!loginForm.errors.password}/>
             <FieldError>{loginForm.errors.password}</FieldError>
