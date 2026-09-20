@@ -4,10 +4,25 @@ export const down = () => {
   }
 }
 
-export const time = (stamp) => {
-  return stamp
-}
+export const time = (stamp) => new Intl.DateTimeFormat("en-US", {
+  timeStyle: "short",
+  dateStyle: "medium"
+}).format(new Date(stamp))
 
 export const ago = (stamp) => {
-  return stamp
+  const diffs = (new Date(stamp) - new Date()) / 1000
+  const units = [
+    ["year", 31536000],
+    ["month", 2592000],
+    ["week", 604800],
+    ["day", 86400],
+    ["hour", 3600],
+    ["minute", 60],
+    ["second", 1]
+  ]
+  for (const [unit, seconds] of units) {
+    if (Math.abs(diffs) >= seconds || unit === "second") return new Intl.RelativeTimeFormat("en", {
+      numeric: "auto"
+    }).format(Math.round(diffs / seconds), unit)
+  }
 }

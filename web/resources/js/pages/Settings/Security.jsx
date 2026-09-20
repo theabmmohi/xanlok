@@ -1,11 +1,4 @@
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item"
+import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { usePasskeyRegister } from "@laravel/passkeys/react"
 import { Fingerprint, Plus } from "lucide-react"
