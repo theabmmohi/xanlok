@@ -10,6 +10,7 @@ export const time = (stamp) => new Intl.DateTimeFormat("en-US", {
 }).format(new Date(stamp))
 
 export const ago = (stamp) => {
+  if (!stamp) return "never"
   const diffs = (new Date(stamp) - new Date()) / 1000
   const units = [
     ["year", 31536000],
