@@ -27,3 +27,25 @@ export const ago = (stamp) => {
     }).format(Math.round(diffs / seconds), unit)
   }
 }
+
+export const guessDevice = () => {
+  if (typeof navigator === "undefined") return ""
+  const ua = navigator.userAgent
+  const os =
+    /Windows/.test(ua) ? "Windows" :
+    /iPhone|iPad|iPod/.test(ua) ? "iOS" :
+    /Macintosh/.test(ua) ? "Mac" :
+    /Android/.test(ua) ? "Android" :
+    /Linux/.test(ua) ? "Linux" :
+    null
+  const br =
+    /Edg\//.test(ua) ? "Edge" :
+    /OPR\//.test(ua) ? "Opera" :
+    /SamsungBrowser/.test(ua) ? "Samsung Internet" :
+    /Chrome\//.test(ua) ? "Chrome" :
+    /Firefox\//.test(ua) ? "Firefox" :
+    /Safari\//.test(ua) ? "Safari" :
+    null
+  if (br && os) return `${browser} on ${os}`
+  return br || os || ""
+}

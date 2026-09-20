@@ -20,6 +20,8 @@ use App\Http\Responses\VerifyEmailResponse;
 use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract;
 use App\Http\Responses\ProfileInformationUpdatedResponse;
 use Laravel\Fortify\Contracts\ProfileInformationUpdatedResponse as ProfileInformationUpdatedResponseContract;
+use App\Http\Responses\PasskeyDeletedResponse;
+use Laravel\Passkeys\Contracts\PasskeyDeletedResponse as PasskeyDeletedResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
         $this->app->singleton(ProfileInformationUpdatedResponseContract::class, ProfileInformationUpdatedResponse::class);
+        $this->app->singleton(PasskeyDeletedResponseContract::class, PasskeyDeletedResponse::class);
     }
 
     /**
