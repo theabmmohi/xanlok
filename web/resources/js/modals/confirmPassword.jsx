@@ -41,7 +41,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
   return <>
     {children(trigger, processing)}
     <Dialog open={open} onOpenChange={setOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
-      <DialogContent>
+      <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Confirm your password</DialogTitle>
           <DialogDescription>This is a security-sensitive action. Please re-enter your password to continue.</DialogDescription>

@@ -30,7 +30,9 @@ export default function Security ({ passkeys }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ItemGroup>
+        {passkeys.length === 0 ? <p className="text-sm text-center text-muted-foreground">
+          You haven't added any passkeys yet.
+        </p> : <ItemGroup>
           {passkeys.map((passkey) => <Item key={passkey.id} variant="outline">
             <ItemContent>
               <ItemTitle>{passkey.name}</ItemTitle>
@@ -49,7 +51,7 @@ export default function Security ({ passkeys }) {
               </ConfirmPassword>
             </ItemActions>
           </Item>)}
-        </ItemGroup>
+        </ItemGroup>}
       </CardContent>
       <CardFooter className="border-t flex gap-5">
         <Input placeholder="Enter passkey name" value={passkeyName} onChange={(event) => setPasskeyName(event.target.value)}/>
