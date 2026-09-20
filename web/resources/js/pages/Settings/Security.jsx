@@ -3,6 +3,8 @@ import { usePasskeyRegister } from "@laravel/passkeys/react"
 import { Fingerprint, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { router } from "@inertiajs/react"
+
+import ConfirmPassword from "@/modals/confirmPassword"
 import toast from "@/lib/toaster"
 
 export default function Security ({ passkeys }) {
@@ -25,10 +27,12 @@ export default function Security ({ passkeys }) {
         
       </CardContent>
       <CardFooter className="border-t flex justify-end">
-        <Button processing={loadingPasskey} onClick={registerPasskey}>
-          { loadingPasskey ? null : <Plus/> }
+        <ConfirmPassword onConfirm={registerPasskey(window.prompt("Enter passkey name"))}>
+        {(trigger, checking) => <Button processing={checking || loadingPasskey} onClick={trigger}>
+          { checking || loadingPasskey ? null : <Plus/> }
           Add new
-        </Button>
+        </Button>}
+        </ConfirmPassword>
       </CardFooter>
     </Card>
     <pre className="whitespace-pre-wrap break-all">{JSON.stringify(passkeys, null, 2)}</pre>

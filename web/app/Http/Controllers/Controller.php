@@ -47,7 +47,13 @@ class Controller
     {
         return Inertia::render('Settings/Security', [
             'passkeys' => $request->user()->passkeys()->get([
-                'id', 'name', 'last_used_at', 'created_at'
+                'id', 'name', 'credential', 'last_used_at', 'created_at'
+            ])->map(fn ($passkey) => [
+                'id' => $passkey->id,
+                'name' => $passkey->name,
+                'authenticator' => $passkey->authenticator,
+                'last_used_at' => $passkey->last_used_at,
+                'created_at' => $passkey->created_at
             ])
         ]);
     }
