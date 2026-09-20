@@ -22,6 +22,8 @@ use App\Http\Responses\ProfileInformationUpdatedResponse;
 use Laravel\Fortify\Contracts\ProfileInformationUpdatedResponse as ProfileInformationUpdatedResponseContract;
 use App\Http\Responses\PasskeyDeletedResponse;
 use Laravel\Passkeys\Contracts\PasskeyDeletedResponse as PasskeyDeletedResponseContract;
+use App\Http\Responses\PasswordConfirmedResponse;
+use Laravel\Fortify\Contracts\PasswordConfirmedResponse as PasswordConfirmedResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(VerifyEmailResponseContract::class, VerifyEmailResponse::class);
         $this->app->singleton(ProfileInformationUpdatedResponseContract::class, ProfileInformationUpdatedResponse::class);
         $this->app->singleton(PasskeyDeletedResponseContract::class, PasskeyDeletedResponse::class);
+        $this->app->singleton(PasswordConfirmedResponseContract::class, PasswordConfirmedResponse::class);
     }
 
     /**
