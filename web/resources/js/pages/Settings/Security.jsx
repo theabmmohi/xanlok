@@ -27,7 +27,10 @@ export default function Security ({ passkeys }) {
         
       </CardContent>
       <CardFooter className="border-t flex justify-end">
-        <ConfirmPassword onConfirm={registerPasskey(window.prompt("Enter passkey name"))}>
+        <ConfirmPassword onConfirm={() => {
+          const name = window.prompt("Enter Passkey Name")
+          registerPasskey(name)
+        }}>
         {(trigger, checking) => <Button processing={checking || loadingPasskey} onClick={trigger}>
           { checking || loadingPasskey ? null : <Plus/> }
           Add new
