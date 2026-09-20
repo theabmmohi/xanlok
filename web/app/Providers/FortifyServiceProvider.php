@@ -75,6 +75,10 @@ class FortifyServiceProvider extends ServiceProvider
             );
         });
 
+        Fortify::confirmPasswordsUsing(function ($user, $password) {
+            return Hash::check($password, $user->password);
+        });
+
         // Inertia Views
         Fortify::loginView(fn () => Inertia::render('Auth/Login'));
         Fortify::registerView(fn () => Inertia::render('Auth/Register'));

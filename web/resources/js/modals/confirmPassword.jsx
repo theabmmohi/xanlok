@@ -3,6 +3,7 @@ import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@inertiajs/react"
+import { down } from "@/lib/functions"
 import { useState } from "react"
 import toast from "@/lib/toaster"
 
@@ -27,6 +28,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
   }
   const confirm = (event) => {
     event.preventDefault()
+    down()
     passwordForm.post("/user/confirm-password", {
       onSuccess: () => {
         setOpen(false)
@@ -44,7 +46,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
           <DialogTitle>Confirm your password</DialogTitle>
           <DialogDescription>This is a security-sensitive action. Please re-enter your password to continue.</DialogDescription>
         </DialogHeader>
-        <form id="form" onSubmit={confirm}>
+        <form id="confirmPasswordForm" onSubmit={confirm}>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -54,7 +56,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
           </FieldGroup>
         </form>
         <DialogFooter>
-          <Button type="submit" form="form" processing={passwordForm.processing}>Confirm</Button>
+          <Button type="confirmPasswordForm" form="form" processing={passwordForm.processing}>Confirm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
