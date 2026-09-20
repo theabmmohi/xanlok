@@ -15,8 +15,8 @@ import toast from "@/lib/toaster"
 export default function Login () {
   const loginForm = useForm({ identifier: "", password: "", remember: false })
   const { verify: verifyPasskey, isLoading: loadingPasskey } = usePasskeyVerify({
-    // autofill
-    // remember
+    autofill: true,
+    remember: () => loginForm.data.remember,
     onSuccess: (response) => router.visit(response.redirect ?? "/"),
     onError: (error) => toast.error(error?.message ?? "Passkey login failed.")
   })
@@ -40,7 +40,7 @@ export default function Login () {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="identifier">Email or username</FieldLabel>
-            <Input id="identifier" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" placeholder="name@example.com" value={loginForm.data.identifier} onChange={(event) => change("identifier", event)} aria-invalid={!!loginForm.errors.identifier}/>
+            <Input id="identifier" type="text" autoCapitalize="none" autoCorrect="off" spellCheck="false" autoComplete="username webauthn" placeholder="name@example.com" value={loginForm.data.identifier} onChange={(event) => change("identifier", event)} aria-invalid={!!loginForm.errors.identifier}/>
             <FieldError>{loginForm.errors.identifier}</FieldError>
           </Field>
           <Field>

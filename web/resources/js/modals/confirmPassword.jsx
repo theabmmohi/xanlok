@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
-import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@inertiajs/react"
@@ -51,7 +51,6 @@ export default function ConfirmPassword ({ onConfirm, children }) {
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
               <Input id="password" type="password" value={passwordForm.data.password} onChange={(event) => { passwordForm.setData("password", event.target.value); passwordForm.clearErrors("password") }} aria-invalid={!!passwordForm.errors.password} autoFocus/>
-              <FieldError>{passwordForm.errors.password}</FieldError>
             </Field>
           </FieldGroup>
         </form>

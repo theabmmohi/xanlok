@@ -1,7 +1,16 @@
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { usePasskeyRegister } from "@laravel/passkeys/react"
 import { Fingerprint, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { time, ago } from "@/lib/functions"
 import { router } from "@inertiajs/react"
 
 import ConfirmPassword from "@/modals/confirmPassword"
@@ -18,13 +27,22 @@ export default function Security ({ passkeys }) {
   return <>
     <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="flex gap-2.5">
           <Fingerprint/>
           Passkeys
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        
+      <CardContent className="flex flex-col gap-5">
+        {passkeys.map((passkey) => <Item key={passkey.id} variant="outline">
+          <ItemContent>
+            <ItemTitle>{passkey.name}</ItemTitle>
+            <ItemDescription className="line-clamp-3">
+              {passkey.authenticator}<br/>
+              {ago(passkey.last_used_at)}<br/>
+              {time(passkey.created_at)}<br/>
+            </ItemDescription>
+          </ItemContent>
+        </Item>)}
       </CardContent>
       <CardFooter className="border-t flex justify-end">
         <ConfirmPassword onConfirm={() => {
@@ -38,7 +56,7 @@ export default function Security ({ passkeys }) {
         </ConfirmPassword>
       </CardFooter>
     </Card>
-    <pre className="whitespace-pre-wrap break-all">{JSON.stringify(passkeys, null, 2)}</pre>
+
     { /*
     <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
