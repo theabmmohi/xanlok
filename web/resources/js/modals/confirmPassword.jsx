@@ -39,8 +39,8 @@ export default function ConfirmPassword ({ onConfirm, children }) {
   return <>
     {children(trigger, processing)}
     <Dialog open={open} onOpenChange={setOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
-      <form onSubmit={confirm}>
-        <DialogContent>
+      <DialogContent>
+        <form onSubmit={confirm}>
           <DialogHeader>
             <DialogTitle>Confirm your password</DialogTitle>
             <DialogDescription>This is a security-sensitive action. Please re-enter your password to continue.</DialogDescription>
@@ -55,8 +55,8 @@ export default function ConfirmPassword ({ onConfirm, children }) {
           <DialogFooter>
             <Button type="submit" processing={passwordForm.processing}>Confirm</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   </>
 }
