@@ -40,7 +40,6 @@ export default function Security ({ passkeys }) {
               <ConfirmPassword onConfirm={() => router.delete(`/user/passkeys/${passkey.id}`)}>
                 {(trigger, checking) => <Button size="icon" variant="destructive" processing={checking} onClick={trigger}>{ checking ? null : <Trash/> }</Button>}
               </ConfirmPassword>
-              <Button size="icon" variant="destructive"><Trash/></Button>
             </ItemActions>
           </Item>)}
         </ItemGroup>
