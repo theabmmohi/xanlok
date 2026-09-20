@@ -46,6 +46,6 @@ export const guessDevice = () => {
     /Firefox\//.test(ua) ? "Firefox" :
     /Safari\//.test(ua) ? "Safari" :
     null
-  if (br && os) return `${browser} on ${os}`
+  if (br && os) return `${br} on ${os}`
   return br || os || ""
 }
