@@ -57,6 +57,10 @@ export default function ConfirmPassword ({ onConfirm, children }) {
     {children(trigger, processing)}
     <Dialog className="max-w-sm sm:mx-auto mx-5 my-5" open={open} disablePointerDismissal onOpenChange={(isOpen, _, eDetails) => {
       if (!isOpen && eDetails?.reason === "escape-key") return
+      if (!isOpen) {
+        passwordForm.clearErrors()
+        passwordForm.reset()
+      }
       setOpen(isOpen)
     }}>
       <DialogContent initialFocus={passkeyButtonRef}>
