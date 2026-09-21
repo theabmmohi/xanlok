@@ -69,11 +69,11 @@ export default function ConfirmPassword ({ onConfirm, children }) {
           </FieldGroup>
         </form>
         <DialogFooter>
-          <Button type="submit" form="confirmPasswordForm" processing={passwordForm.processing}>Confirm</Button>
           <Button type="button" variant="outline" processing={loadingPasskey} onClick={verifyPasskey}>
             { loadingPasskey ? null : <Fingerprint/> }
             Continue with passkey
           </Button>
+          <Button type="submit" form="confirmPasswordForm" processing={passwordForm.processing}>Confirm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
