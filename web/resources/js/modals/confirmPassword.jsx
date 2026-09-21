@@ -67,7 +67,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input id="password" type="password" placeholder="••••••••" value={passwordForm.data.password} onChange={(event) => { passwordForm.setData("password", event.target.value); passwordForm.clearErrors("password") }} aria-invalid={!!passwordForm.errors.password} autoFocus/>
+              <Input id="password" type="password" placeholder="••••••••" value={passwordForm.data.password} onChange={(event) => { passwordForm.setData("password", event.target.value); passwordForm.clearErrors("password") }} aria-invalid={!!passwordForm.errors.password}/>
             </Field>
           </FieldGroup>
         </form>

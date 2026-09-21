@@ -20,7 +20,7 @@ export default function Security ({ passkeys }) {
     },
     onError: (error) => toast.error(error?.message ?? "Passkey register failed.")
   })
-  useEffect(() => setPasskeyName(guessDevice()), [])
+  useEffect(() => guessDevice().then((deviceName) => setPasskeyName(deviceName)), [])
   return <>
     <Card className="max-w-sm sm:mx-auto mx-5 my-5">
       <CardHeader>
@@ -54,9 +54,11 @@ export default function Security ({ passkeys }) {
         </ItemGroup>}
       </CardContent>
       <CardFooter className="border-t flex gap-5">
-        <Input placeholder="Enter passkey name" value={passkeyName} onChange={(event) => setPasskeyName(event.target.value)}/>
+        <form id="addPasskeyForm">
+          <Input placeholder="Enter passkey name" value={passkeyName} onChange={(event) => setPasskeyName(event.target.value)}/>
+        </form>
         <ConfirmPassword onConfirm={() => registerPasskey(passkeyName)}>
-        {(trigger, checking) => <Button type="submit" processing={checking || loadingPasskey} onClick={() => {
+        {(trigger, checking) => <Button type="submit" form="addPasskeyForm" processing={checking || loadingPasskey} onClick={() => {
           if (!passkeyName) return toast.error("Enter passkey name first")
           trigger()
         }}>

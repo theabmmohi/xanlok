@@ -30,11 +30,25 @@ export const ago = (stamp) => {
   }
 }
 
-export const guessDevice = () => {
-  if (typeof window === "undefined" || typeof navigator === "undefined") return
-  const parser = bowser.getParser(window.navigator.userAgent)
-  const br = parser.getBrowserName()
-  const os = parser.getOSName()
-  if (br && os) return `${br} on ${os}`
-  return br || os || ""
+export const guessDevice = async () => {
+  if (typeof window === "undefined") return
+  const navigatorObject = window.navigator
+  let clientHints = navigatorObject.userAgentData
+  try {
+    const highEntropyValues = await navigatorObject.userAgentData?.getHighEntropyValues(["model", "platformVersion"])
+    if (highEntropyValues) clientHints = { ...navigatorObject.userAgentData.toJSON(), ...highEntropyValues }
+  } catch (error) { console.error(error) }
+  const parser = bowser.getParser(navigatorObject.userAgent, clientHints)
+  const browserName = parser.getBrowserName()
+  const operatingSystemName = parser.getOSName()
+  const platformType = parser.getPlatformType()
+  const deviceModel = parser.getPlatform().model || parser.getHints()?.model
+  const nameOptions = [
+    browserName && operatingSystemName && `${browserName} on ${operatingSystemName}`,
+    browserName && platformType && `${browserName} on ${platformType}`,
+    operatingSystemName && platformType && `${operatingSystemName} ${platformType}`,
+    deviceModel,
+    deviceModel && browserName && `${deviceModel} (${browserName})`
+  ].filter(Boolean)
+  return nameOptions[Math.floor(Math.random() * nameOptions.length)] || browserName || operatingSystemName || ""
 }
