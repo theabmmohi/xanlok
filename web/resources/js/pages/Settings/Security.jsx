@@ -55,7 +55,7 @@ export default function Security ({ passkeys }) {
       </CardContent>
       <CardFooter className="border-t flex gap-5">
         <form id="addPasskeyForm">
-          <Input placeholder="Enter passkey name" value={passkeyName} onChange={(event) => setPasskeyName(event.target.value)}/>
+          <Input placeholder="Enter passkey name" value={passkeyName} onChange={(event) => setPasskeyName(event.target.value)} onFocus={(event) => event.target.select()}/>
         </form>
         <ConfirmPassword onConfirm={() => registerPasskey(passkeyName)}>
         {(trigger, checking) => <Button type="submit" form="addPasskeyForm" processing={checking || loadingPasskey} onClick={() => {

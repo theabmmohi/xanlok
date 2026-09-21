@@ -1,7 +1,7 @@
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { useForm, Link, router, usePage } from "@inertiajs/react"
 import { usePasskeyVerify } from "@laravel/passkeys/react"
-import { useForm, Link, router } from "@inertiajs/react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,10 +12,15 @@ import { down } from "@util/function"
 import toast from "@util/toaster"
 
 export default function Login () {
+  const { props } = usePage()
+  const greet = () => toast(`Welcome back, ${props.auth.user?.name}!`)
   const loginForm = useForm({ identifier: "", password: "", remember: false })
   const { verify: verifyPasskey, isLoading: loadingPasskey } = usePasskeyVerify({
     remember: () => loginForm.data.remember,
-    onSuccess: (response) => router.visit(response.redirect ?? "/"),
+    onSuccess: (response) => {
+      router.visit(response.redirect ?? "/")
+      greet()
+    },
     onError: (error) => toast.error(error?.message ?? "Passkey login failed.")
   })
   const change = (field, event) => {
@@ -26,7 +31,7 @@ export default function Login () {
   const submit = (event) => {
     event.preventDefault()
     down()
-    loginForm.post("/login")
+    loginForm.post("/login", { onSuccess: () => greet() })
   }
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5">
     <CardHeader>
