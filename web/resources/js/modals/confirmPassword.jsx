@@ -54,8 +54,11 @@ export default function ConfirmPassword ({ onConfirm, children }) {
   })
   return <>
     {children(trigger, processing)}
-    <Dialog open={open} onOpenChange={setOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
-      <DialogContent showCloseButton={false}>
+    <Dialog className="max-w-sm sm:mx-auto mx-5 my-5" open={open} disablePointerDismissal onOpenChange={(isOpen, _, eDetails) => {
+      if (!isOpen && eDetails?.reason === "escape-key") return
+      setOpen(isOpen)
+    }}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Confirm your password</DialogTitle>
           <DialogDescription>This is a security-sensitive action. Please re-enter your password to continue.</DialogDescription>
@@ -68,12 +71,12 @@ export default function ConfirmPassword ({ onConfirm, children }) {
             </Field>
           </FieldGroup>
         </form>
-        <DialogFooter>
+        <DialogFooter className="flex-col">
+          <Button type="submit" form="confirmPasswordForm" processing={passwordForm.processing}>Confirm</Button>
           <Button type="button" variant="outline" processing={loadingPasskey} onClick={verifyPasskey}>
             { loadingPasskey ? null : <Fingerprint/> }
             Continue with passkey
           </Button>
-          <Button type="submit" form="confirmPasswordForm" processing={passwordForm.processing}>Confirm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
