@@ -1,7 +1,9 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { usePasskeyVerify } from "@laravel/passkeys/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Fingerprint } from "lucide-react"
 import { useForm } from "@inertiajs/react"
 import { down } from "@util/function"
 import { useState } from "react"
@@ -39,6 +41,17 @@ export default function ConfirmPassword ({ onConfirm, children }) {
       onFinish: () => passwordForm.reset("password")
     })
   }
+  const { verify: verifyPasskey, isLoading: loadingPasskey } = usePasskeyVerify({
+    routes: {
+      options: "/passkeys/confirm/options",
+      submit: "/passkeys/confirm",
+    },
+    onSuccess: () => {
+      setOpen(false)
+      onConfirm()
+    },
+    onError: (error) => toast.error(error?.message ?? "Passkey confirmation failed.")
+  })
   return <>
     {children(trigger, processing)}
     <Dialog open={open} onOpenChange={setOpen} className="max-w-sm sm:mx-auto mx-5 my-5">
@@ -57,6 +70,10 @@ export default function ConfirmPassword ({ onConfirm, children }) {
         </form>
         <DialogFooter>
           <Button type="confirmPasswordForm" form="form" processing={passwordForm.processing}>Confirm</Button>
+          <Button variant="outline" type="button" processing={loadingPasskey} onClick={verifyPasskey}>
+            { loadingPasskey ? null : <Fingerprint/> }
+            Continue with passkey
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
