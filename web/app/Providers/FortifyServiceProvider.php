@@ -24,6 +24,8 @@ use App\Http\Responses\PasskeyDeletedResponse;
 use Laravel\Passkeys\Contracts\PasskeyDeletedResponse as PasskeyDeletedResponseContract;
 use App\Http\Responses\PasswordConfirmedResponse;
 use Laravel\Fortify\Contracts\PasswordConfirmedResponse as PasswordConfirmedResponseContract;
+use App\Actions\Fortify\NamedRegistrationOptions;
+use Laravel\Passkeys\Actions\GenerateRegistrationOptions;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(ProfileInformationUpdatedResponseContract::class, ProfileInformationUpdatedResponse::class);
         $this->app->singleton(PasskeyDeletedResponseContract::class, PasskeyDeletedResponse::class);
         $this->app->singleton(PasswordConfirmedResponseContract::class, PasswordConfirmedResponse::class);
+        $this->app->bind(GenerateRegistrationOptions::class, NamedRegistrationOptions::class);
     }
 
     /**
