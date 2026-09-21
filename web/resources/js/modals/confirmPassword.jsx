@@ -3,9 +3,10 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@inertiajs/react"
-import { down } from "@/lib/functions"
+import { down } from "@util/function"
 import { useState } from "react"
-import toast from "@/lib/toaster"
+
+import toast from "@util/toaster"
 
 export default function ConfirmPassword ({ onConfirm, children }) {
   const [open, setOpen] = useState(false)

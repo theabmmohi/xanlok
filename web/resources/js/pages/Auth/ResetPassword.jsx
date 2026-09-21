@@ -1,11 +1,11 @@
 import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { usePage, useForm, Head } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { down } from "@util/function"
 
-import { usePage, useForm, Head } from "@inertiajs/react"
-import { down } from "@/lib/functions"
-import toast from "@/lib/toaster"
+import toast from "@util/toaster"
 
 export default function ResetPassword ({ token, email }) {
   const { props } = usePage()

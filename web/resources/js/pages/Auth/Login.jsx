@@ -1,16 +1,15 @@
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { usePasskeyVerify } from "@laravel/passkeys/react"
+import { useForm, Link, router } from "@inertiajs/react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-
-import { useForm, Link, router } from "@inertiajs/react"
 import { Fingerprint } from "lucide-react"
 import { Google } from "@thesvg/react"
-import { down } from "@/lib/functions"
-import toast from "@/lib/toaster"
+import { down } from "@util/function"
 
+import toast from "@util/toaster"
 
 export default function Login () {
   const loginForm = useForm({ identifier: "", password: "", remember: false })

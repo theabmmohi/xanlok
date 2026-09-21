@@ -7,8 +7,9 @@ import { Save, RefreshCw } from "lucide-react"
 import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { down } from "@/lib/functions"
-import toast from "@/lib/toaster"
+import { down } from "@util/function"
+
+import toast from "@util/toaster"
 
 export default function Profile () {
   const { props } = usePage()

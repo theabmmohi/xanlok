@@ -1,14 +1,14 @@
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
 import { LoaderCircle, CircleCheck, Ban } from "lucide-react"
 import { useForm, Link } from "@inertiajs/react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { useState, useEffect } from "react"
 import { Google } from "@thesvg/react"
-import { down } from "@/lib/functions"
-import toast from "@/lib/toaster"
+import { down } from "@util/function"
+
+import toast from "@util/toaster"
 
 export default function Register () {
   const [username, setUsername] = useState("")

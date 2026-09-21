@@ -20,7 +20,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": to("./resources/js")
+      "@":      to("./resources/js"),
+      "@util":  to("./resources/utils"),
+      "@modal": to("./resources/modals")
     }
   }
 })

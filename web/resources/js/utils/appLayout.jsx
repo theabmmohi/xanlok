@@ -4,9 +4,10 @@ import { BadgeCheck, BadgeAlert, BadgeQuestionMark, Sun, Moon, Monitor, Settings
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useState, useEffect, useCallback } from "react"
 import { usePage, router, Link } from "@inertiajs/react"
-import { Github } from "@thesvg/react"
 import { Button } from "@/components/ui/button"
-import toast, { Toaster } from "@/lib/toaster"
+import { Github } from "@thesvg/react"
+
+import toast, { Toaster } from "@util/toaster"
 
 export default function AppLayout({ children }) {
   const { component, props } = usePage()

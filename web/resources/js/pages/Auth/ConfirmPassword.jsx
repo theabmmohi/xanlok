@@ -3,7 +3,8 @@ import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@inertiajs/react"
-import toast from "@/lib/toaster"
+
+import toast from "@util/toaster"
 
 export default function ConfirmPassword () {
   const passwordForm = useForm({ password: "" })

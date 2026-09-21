@@ -1,5 +1,5 @@
 import { createInertiaApp } from "@inertiajs/react"
-import AppLayout from "@/layouts/appLayout"
+import AppLayout from "@util/appLayout"
 import "@/app.css"
 
 createInertiaApp({

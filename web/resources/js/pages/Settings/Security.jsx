@@ -1,15 +1,15 @@
 import { Item, ItemGroup, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { usePasskeyRegister } from "@laravel/passkeys/react"
-import { time, ago, guessDevice } from "@/lib/functions"
+import { time, ago, guessDevice } from "@util/function"
 import { Fingerprint, Trash, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState, useEffect } from "react"
 import { router } from "@inertiajs/react"
 
-import ConfirmPassword from "@/modals/confirmPassword"
-import toast from "@/lib/toaster"
+import ConfirmPassword from "@modal/confirmPassword"
+import toast from "@util/toaster"
 
 export default function Security ({ passkeys }) {
   const [passkeyName, setPasskeyName] = useState("")

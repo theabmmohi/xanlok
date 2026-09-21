@@ -1,5 +1,4 @@
 import { usePage } from "@inertiajs/react"
-import toast from "@/lib/toaster"
 
 export default function Index () {
   const { props } = usePage()
