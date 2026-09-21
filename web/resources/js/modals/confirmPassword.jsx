@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Fingerprint } from "lucide-react"
 import { useForm } from "@inertiajs/react"
+import { useState, useRef } from "react"
 import { down } from "@util/function"
-import { useState } from "react"
 
 import toast from "@util/toaster"
 
 export default function ConfirmPassword ({ onConfirm, children }) {
+  const passkeyButtonRef = useRef(null)
   const [open, setOpen] = useState(false)
   const [processing, setProcessing] = useState(false)
   const passwordForm = useForm({ password: "" })
@@ -58,7 +59,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
       if (!isOpen && eDetails?.reason === "escape-key") return
       setOpen(isOpen)
     }}>
-      <DialogContent>
+      <DialogContent initialFocus={passkeyButtonRef}>
         <DialogHeader>
           <DialogTitle>Confirm your password</DialogTitle>
           <DialogDescription>This is a security-sensitive action. Please re-enter your password to continue.</DialogDescription>
@@ -73,7 +74,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
         </form>
         <DialogFooter className="flex-col">
           <Button type="submit" form="confirmPasswordForm" processing={passwordForm.processing}>Confirm</Button>
-          <Button type="button" variant="outline" processing={loadingPasskey} onClick={verifyPasskey}>
+          <Button ref={passkeyButtonRef} type="button" variant="outline" processing={loadingPasskey} onClick={verifyPasskey}>
             { loadingPasskey ? null : <Fingerprint/> }
             Continue with passkey
           </Button>
