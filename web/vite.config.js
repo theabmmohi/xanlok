@@ -21,8 +21,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@":      to("./resources/js"),
-      "@util":  to("./resources/utils"),
-      "@modal": to("./resources/modals")
+      "@util":  to("./resources/js/utils"),
+      "@modal": to("./resources/js/modals")
     }
   }
 })
