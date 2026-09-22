@@ -116,7 +116,7 @@ export default function Register () {
           <FieldGroup>
             <Field>
               <Button processing={registerForm.processing} type="submit">Create Account</Button>
-              <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>
+              <Button variant="outline" type="button" onClick={() => toast.error("Not available")}>
                 <Google/>Continue with Google
               </Button>
               <FieldDescription className="px-6 text-center">Already have an account? <Link href="/login">Login</Link></FieldDescription>

@@ -20,7 +20,7 @@ export default function Security ({ passkeys }) {
       toast.success("Passkey added successfully")
       router.reload({ only: ["passkeys"] })
     },
-    onError: (error) => toast.error(error?.message ?? "Passkey register failed.")
+    onError: (error) => toast.error(error?.message ?? "Passkey register failed")
   })
   const change = (field, event) => {
     const value = event.target.value
@@ -35,7 +35,7 @@ export default function Security ({ passkeys }) {
       errorBag: "updatePassword",
       onSuccess: () => {
         updatePassForm.reset()
-        toast.success("Password updated.")
+        toast.success("Password updated")
       }
     })
   }

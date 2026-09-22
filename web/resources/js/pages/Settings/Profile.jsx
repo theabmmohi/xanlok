@@ -23,7 +23,7 @@ export default function Profile () {
   const save = () => profileForm.put("/user/profile-information", {
     preserveScroll: true,
     errorBag: "updateProfileInformation",
-    onSuccess: () => toast.success("Profile information updated.")
+    onSuccess: () => toast.success("Profile information updated")
   })
   const submit = (event) => {
     event.preventDefault()
@@ -41,7 +41,7 @@ export default function Profile () {
     const file = event.target.files[0]
     if (!file) return
     if (file.size > 5 * 1024 * 1024) {
-      toast.error("Max 5MB image allowed.")
+      toast.error("Max 5MB image allowed")
       event.target.value = ""
       return
     }
@@ -49,7 +49,7 @@ export default function Profile () {
     avatarForm.post("/user/avatar", {
       forceFormData: true,
       preserveScroll: true,
-      onSuccess: () => toast.success("Avatar updated."),
+      onSuccess: () => toast.success("Avatar updated"),
       onError: (error) => toast.error(error.avatar),
       onFinish: () => event.target.value = ""
     })

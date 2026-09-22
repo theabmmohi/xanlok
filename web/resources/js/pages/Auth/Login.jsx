@@ -19,7 +19,7 @@ export default function Login () {
     onSuccess: (response) => router.visit(response.redirect ?? "/", {
       onSuccess: (page) => greet(page)
     }),
-    onError: (error) => toast.error(error?.message ?? "Passkey login failed.")
+    onError: (error) => toast.error(error?.message ?? "Passkey login failed")
   })
   const change = (field, event) => {
     const value = event.target.value
@@ -58,7 +58,7 @@ export default function Login () {
           </Field>
           <Field>
             <Button processing={loginForm.processing} type="submit">Login</Button>
-            <Button variant="outline" type="button" onClick={() => toast.error("Not available.")}>
+            <Button variant="outline" type="button" onClick={() => toast.error("Not available")}>
               <Google/>
               Continue with Google
             </Button>

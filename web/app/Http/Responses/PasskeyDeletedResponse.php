@@ -9,7 +9,7 @@ class PasskeyDeletedResponse implements PasskeyDeletedResponseContract
     public function toResponse($request)
     {
         return $request->wantsJson()
-            ? response()->json(['message' => 'Passkey deleted.'], 200)
+            ? response()->json(['message' => 'Passkey deleted'], 200)
             : back();
     }
 }

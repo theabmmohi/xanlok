@@ -27,7 +27,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
       }
       setOpen(true)
     } catch (error) {
-      toast.error(error.message ?? "Something went wrong, please try again.")
+      toast.error(error.message ?? "Something went wrong, please try again")
     } finally { setProcessing(false) }
   }
   const confirm = (event) => {
@@ -51,7 +51,7 @@ export default function ConfirmPassword ({ onConfirm, children }) {
       setOpen(false)
       onConfirm()
     },
-    onError: (error) => toast.error(error?.message ?? "Passkey confirmation failed.")
+    onError: (error) => toast.error(error?.message ?? "Passkey confirmation failed")
   })
   return <>
     {children(trigger, processing)}

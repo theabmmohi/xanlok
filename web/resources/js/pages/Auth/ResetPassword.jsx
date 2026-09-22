@@ -20,7 +20,7 @@ export default function ResetPassword ({ token, email }) {
     down()
     resetPasswordForm.post("/reset-password", {
       preserveScroll: true,
-      onError: () => toast.error("This password reset link is either expired or used.")
+      onError: () => toast.error("This password reset link is either expired or used")
     })
   }
   return <Card className="max-w-sm sm:mx-auto mx-5 my-5"><Head title={`Reset Password - ${props.appname}`}/>
