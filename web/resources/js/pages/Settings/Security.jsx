@@ -1,7 +1,7 @@
 import { Item, ItemGroup, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { Fingerprint, Trash, Plus, RectangleEllipsis } from "lucide-react"
+import { Fingerprint, Trash, Plus, RectangleEllipsis, ShieldCheck } from "lucide-react"
 import { down, time, ago, guessDevice } from "@util/function"
 import { usePasskeyRegister } from "@laravel/passkeys/react"
 import { router, useForm } from "@inertiajs/react"
@@ -123,6 +123,14 @@ export default function Security ({ passkeys }) {
         </Button>}
         </ConfirmPassword>
       </CardFooter>
+    </Card>
+    <Card className="max-w-sm sm:mx-auto mx-5 my-5">
+      <CardHeader>
+        <CardTitle className="flex gap-2.5">
+          <ShieldCheck/>
+          Two factor authentication
+        </CardTitle>
+      </CardHeader>
     </Card>
   </>
 }
