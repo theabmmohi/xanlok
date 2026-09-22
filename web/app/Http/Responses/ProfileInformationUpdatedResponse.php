@@ -9,7 +9,7 @@ class ProfileInformationUpdatedResponse implements ProfileInformationUpdatedResp
     public function toResponse($request)
     {
         return $request->wantsJson()
-            ? response()->json(['message' => 'Profile updated.'], 200)
+            ? response()->json(['message' => 'Profile information updated.'], 200)
             : back();
     }
 }

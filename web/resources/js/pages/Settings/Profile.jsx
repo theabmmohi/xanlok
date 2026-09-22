@@ -73,7 +73,7 @@ export default function Profile () {
         </div>
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="name">Full Name</FieldLabel>
+            <FieldLabel htmlFor="name">Full name</FieldLabel>
             <Input id="name" type="text" placeholder="John Doe" value={profileForm.data.name} onChange={(event) => change("name", event)} aria-invalid={!!profileForm.errors.name}/>
             <FieldError>{profileForm.errors.name}</FieldError>
           </Field>

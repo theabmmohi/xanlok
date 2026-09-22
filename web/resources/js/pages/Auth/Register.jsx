@@ -82,7 +82,7 @@ export default function Register () {
       <form noValidate onSubmit={submit}>
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="name">Full Name</FieldLabel>
+            <FieldLabel htmlFor="name">Full name</FieldLabel>
             <Input id="name" type="text" placeholder="John Doe" value={registerForm.data.name} onChange={(event) => change("name", event)} aria-invalid={!!registerForm.errors.name}/>
             <FieldError>{registerForm.errors.name}</FieldError>
           </Field>
@@ -109,7 +109,7 @@ export default function Register () {
             <FieldError>{registerForm.errors.password}</FieldError>
           </Field>
           <Field>
-            <FieldLabel htmlFor="password_confirmation">Confirm Password</FieldLabel>
+            <FieldLabel htmlFor="password_confirmation">Confirm password</FieldLabel>
             <Input id="password_confirmation" type="password" placeholder="••••••••" value={registerForm.data.password_confirmation} onChange={(event) => change("password_confirmation", event)} aria-invalid={!!registerForm.errors.password_confirmation}/>
             <FieldError>{registerForm.errors.password_confirmation}</FieldError>
           </Field>
